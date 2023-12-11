@@ -10,7 +10,7 @@ public class OrderController {
 		this.orders = new ArrayList<>();
 	}
 
-	public void addOrder(Date orderDate, int orderId) {
+	public void createOrder(Date orderDate, int orderId) {
 		Order order = new Order(orderDate, orderId);
 		orders.add(order);
 	}

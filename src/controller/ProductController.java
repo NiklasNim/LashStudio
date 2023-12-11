@@ -12,42 +12,32 @@ public class ProductController {
 		this.products = new ArrayList<>();
 	}
 
-	public void addProduct(String name, Date expirationDate, String type, int stock, int minStock, BigDecimal price,
-			int barcode) {
+	public void createProduct(String name, Date expirationDate, String type, int stock, int minStock, BigDecimal price, int barcode) {
 		Product product = new Product(name, expirationDate, type, stock, minStock, price, barcode);
 		products.add(product);
 	}
 
-	public List<Product> getAllProducts() {
+	public List<Product> findAllProducts() {
 		return products;
 	}
-
-	public Product getProductByBarcode(int barcode) {
-		for (Product product : products) {
-			if (product.getBarcode() == barcode) {
-				return product;
-			}
-		}
-		return null;
-	}
-
-	public void updateProduct(int barcode, int newStock, BigDecimal newPrice) {
-		Product product = getProductByBarcode(barcode);
-		if (product != null) {
-			product.setStock(newStock);
-			product.setPrice(newPrice);
-		} else {
-			System.out.println("Product not found.");
-		}
-	}
-
-	public void removeProduct(int barcode) {
-		Product product = getProductByBarcode(barcode);
-		if (product != null) {
-			products.remove(product);
-		} else {
-			System.out.println("Product not found.");
-		}
-	}
+	
+//	public void updateProduct(int barcode, int newStock, BigDecimal newPrice) {
+//		Product product = getProductByBarcode(barcode);
+//		if (product != null) {
+//			product.setStock(newStock);
+//			product.setPrice(newPrice);
+//		} else {
+//			System.out.println("Product not found.");
+//		}
+//	}
+//
+//	public void removeProduct(int barcode) {
+//		Product product = getProductByBarcode(barcode);
+//		if (product != null) {
+//			products.remove(product);
+//		} else {
+//			System.out.println("Product not found.");
+//		}
+//	}
 
 }

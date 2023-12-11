@@ -24,5 +24,9 @@ public class ServiceController {
 		services.add(newService);
 		System.out.println("Service with ID " + serviceId + " added successfully.");
 	}
+	
+	public void addServiceById(int serviceId) {
+		for ()
+	}
 
 }
