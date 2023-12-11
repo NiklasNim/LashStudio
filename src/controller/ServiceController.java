@@ -1,10 +1,18 @@
 package controller;
-import java.util.List;
+import java.util.*;
 import model.Service;
 
-public class ServiceController {
 
+public class ServiceController {
 	private List<Service> services;
+	
+	public ServiceController() {
+		this.services = new ArrayList<>();
+	}
+	
+	public List<Service> getAllServices(){
+		return services; 
+	}
 
 	public void addServiceById(int serviceId, Service newService) {
 		for (Service existingService : services) {
