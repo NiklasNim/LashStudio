@@ -1,14 +1,16 @@
 package controller;
+
 import java.util.*;
 
-import model.*; 
+import model.*;
 
 public class CustomerController {
-	private List<Customer> customers; 
-	
+	private List<Customer> customers;
+
 	public CustomerController() {
-		this.customers = new ArrayList<>(); 
+		this.customers = new ArrayList<>();
 	}
+
 	public Customer findCustomerByPhone(int phone) {
 		for (Customer customer : customers) {
 			if (customer.getPhone() == phone) {
