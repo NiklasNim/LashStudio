@@ -4,13 +4,13 @@ import java.util.*;
 import model.*; 
 
 public class CustomerController {
-	private List<Customer> customerList; 
+	private List<Customer> customers; 
 	
 	public CustomerController() {
-		this.customerList = new ArrayList<>(); 
+		this.customers = new ArrayList<>(); 
 	}
 	public Customer findCustomerByPhone(int phone) {
-		for (Customer customer : customerList) {
+		for (Customer customer : customers) {
 			if (customer.getPhone() == phone) {
 				return customer;
 			}

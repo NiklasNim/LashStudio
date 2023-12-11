@@ -4,16 +4,26 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class Service {
+	private int serviceId;
 	private Timestamp timePeriod; // tjek lige
 	private BigDecimal price; // tjek lige ud
 	private String description;
 	private String serviceType;
 
-	public Service(Timestamp timePeriod, BigDecimal price, String description, String serviceType) {
+	public Service( int serviceId, Timestamp timePeriod, BigDecimal price, String description, String serviceType) {
+		this.serviceId = serviceId;
 		this.timePeriod = timePeriod;
 		this.price = price;
 		this.description = description;
 		this.serviceType = serviceType;
+	}
+	
+	public int getServiceId() {
+		return serviceId;
+	}
+	
+	public void setService(int serviceId) {
+		this.serviceId = serviceId;
 	}
 
 	public Timestamp getTimePeriod() {

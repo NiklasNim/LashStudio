@@ -5,10 +5,10 @@ import java.sql.Timestamp;
 
 public class Nails extends Service {
 
-	public boolean extension;
+	private boolean extension;
 
-	public Nails(Timestamp timePeriod, BigDecimal price, String description, String serviceType, boolean extension) {
-		super(timePeriod, price, description, serviceType);
+	public Nails(int serviceId, Timestamp timePeriod, BigDecimal price, String description, String serviceType, boolean extension) {
+		super(serviceId, timePeriod, price, description, serviceType);
 		this.extension = extension;
 	}
 
