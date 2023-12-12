@@ -1,30 +1,32 @@
 package controller;
 
 import java.util.*;
+
+import database.CustomerDB;
 import model.*;
 
 public class CustomerController {
 	private List<Customer> customers;
+	private CustomerDB customerDB;
 
 	public CustomerController() {
 		this.customers = new ArrayList<>();
-	}
-	
-	public void createCustomer(String firstName, String lastName, int phone) {
-		Customer customer = new Customer(firstName, lastName, phone);
-		customers.add(customer);
-	}
-	
-	public List<Customer> findAllCustomers() {
-		return customers;
+		this.customerDB = new CustomerDB();
+        this.customers = customerDB.findAllCustomers();
 	}
 
-	public Customer findCustomerByPhone(int phone) {
-		for (Customer customer : customers) {
-			if (customer.getPhone() == phone) {
-				return customer;
-			}
-		}
-		return null;
-	}
+	public void createCustomer(String firstName, String lastName, int phone) {
+        Customer newCustomer = new Customer(firstName, lastName, phone);
+        customers.add(newCustomer);
+
+        customerDB.createCustomer(newCustomer);
+    }
+
+    public List<Customer> findAllCustomers() {
+        return customers;
+    }
+
+    public Customer findCustomerByPhone(int phone) {
+        return customerDB.findCustomerByPhone(phone);
+    }
 }
