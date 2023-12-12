@@ -9,5 +9,5 @@ public interface ProductDBIF {
 
 	List<Product> findAllProducts();
 	
-	void createProductByBarcode(String name, Date expirationDate, String type, int stock, int minStock, BigDecimal price, int barcode);
+	void createProduct(String name, Date expirationDate, String type, int stock, int minStock, BigDecimal price, int barcode);
 }

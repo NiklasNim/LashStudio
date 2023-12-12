@@ -24,7 +24,6 @@ public class CustomerDB implements CustomerDBIF {
 				String firstName = resultSet.getString("firstName");
 				String lastName = resultSet.getString("lastName");
 				int phone = resultSet.getInt("phone");
-				// Add other customer attributes as needed
 
 				Customer customer = new Customer(firstName, lastName, phone);
 				customers.add(customer);
