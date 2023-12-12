@@ -69,16 +69,13 @@ public class CreateOrderUI extends JFrame {
         btnSubmit = new JButton("Tilbage");
         btnSubmit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Perform action on button click
-                // You can access the text from text fields using getText() method
+
                 String text1 = textField1.getText();
                 String text2 = textField2.getText();
                 String text3 = textField3.getText();
                 String text4 = textField4.getText();
                 String text5 = textField5.getText();
                 String text6 = textField6.getText();
-
-                // Add your logic here
                 System.out.println("Text from Field 1: " + text1);
                 System.out.println("Text from Field 2: " + text2);
                 System.out.println("Text from Field 3: " + text3);

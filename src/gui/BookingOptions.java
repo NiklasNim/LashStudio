@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 public class BookingOptions extends JFrame {
 
     private JPanel contentPane;
-    private MainWindow mainWindow; // Reference to MainWindow
+    private MainWindow mainWindow; // Reference til hovedmenuen
 
     public BookingOptions() {
 
@@ -32,7 +32,6 @@ public class BookingOptions extends JFrame {
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(lblNewLabel);
 
-        // Use a GridLayout for the button panel with equal column widths
         JPanel buttonPanel = new JPanel(new GridLayout(1, 4, 10, 0));
 
         JButton btnNewButton = new JButton("Opret Booking");
@@ -75,7 +74,6 @@ public class BookingOptions extends JFrame {
     }
 
     private void goBackToMain() {
-        // Hide this window and show the main window
         setVisible(false);
         mainWindow.setVisible(true);
     }

@@ -17,9 +17,6 @@ public class MainWindow extends JFrame {
 
     private JPanel contentPane;
 
-    /**
-     * Launch the application.
-     */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -33,9 +30,6 @@ public class MainWindow extends JFrame {
         });
     }
 
-    /**
-     * Create the frame.
-     */
     public MainWindow() {
     	setTitle("Hovedmenu"); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -32,7 +32,6 @@ public class OrderOptions extends JFrame {
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(lblNewLabel);
 
-        // Use a GridLayout for the button panel with equal column widths
         JPanel buttonPanel = new JPanel(new GridLayout(1, 4, 10, 0));
 
         JButton btnNewButton = new JButton("Opret Ordre");
@@ -75,7 +74,6 @@ public class OrderOptions extends JFrame {
     }
 
     private void goBackToMain() {
-        // Hide this window and show the main window
         setVisible(false);
         mainWindow.setVisible(true);
     }
