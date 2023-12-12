@@ -13,7 +13,6 @@ public abstract class ProductDB implements ProductDBIF {
     private static final String URL = "jdbc:mysql://localhost:3306/your_database";
     private static final String USER = "your_username";
     private static final String PASSWORD = "your_password";
-    private ArrayList<Product> products;
 
     public static Connection connect() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
@@ -48,7 +47,29 @@ public abstract class ProductDB implements ProductDBIF {
     }
 
    
-    public void createProductByBarcode(Product product) {
-		products.add(product);
-	}
+    public void createProduct(String name, Date expirationDate, String type, int stock, int minStock, BigDecimal price, int barcode) {
+        try (Connection connection = connect()) {
+            String sql = "INSERT INTO products (name, expirationDate, type, stock, minStock, price, barcode) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, name);
+                statement.setDate(2, new java.sql.Date(expirationDate.getTime()));
+                statement.setString(3, type);
+                statement.setInt(4, stock);
+                statement.setInt(5, minStock);
+                statement.setBigDecimal(6, price);
+                statement.setInt(7, barcode);
+
+                int rowsInserted = statement.executeUpdate();
+
+                if (rowsInserted > 0) {
+                    System.out.println("Product created successfully!");
+                } else {
+                    System.out.println("Failed to create product.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
