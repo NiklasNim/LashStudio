@@ -19,16 +19,19 @@ public class TestCustomer {
 		customer = null;
 	}
 
-	@Test
-	void testFirstName() {
+	//Testing the customer's first name.
+	@Test 
+	void testCustomerFirstName() {
 		assertEquals("Bo", customer.getFirstName(), "The customer's first name should match.");
 	}
 
+	//Testing the customer's last name.
 	@Test
-	void testLastName() {
+	void testCustomerLastName() {
 		assertEquals("Benzon", customer.getLastName(), "The customer's last name should match.");
 	}
 
+	//Testing the customer's phone.
 	@Test
 	void testCustomerPhone() {
 		assertEquals("19981999", customer.getPhone(), "The customer phone should match.");
