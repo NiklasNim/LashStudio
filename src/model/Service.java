@@ -10,18 +10,18 @@ public class Service {
 	private String description;
 	private String serviceType;
 
-	public Service( int serviceId, Timestamp timePeriod, BigDecimal price, String description, String serviceType) {
+	public Service(int serviceId, Timestamp timePeriod, BigDecimal price, String description, String serviceType) {
 		this.serviceId = serviceId;
 		this.timePeriod = timePeriod;
 		this.price = price;
 		this.description = description;
 		this.serviceType = serviceType;
 	}
-	
+
 	public int getServiceId() {
 		return serviceId;
 	}
-	
+
 	public void setService(int serviceId) {
 		this.serviceId = serviceId;
 	}

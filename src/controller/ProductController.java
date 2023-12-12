@@ -5,39 +5,28 @@ import model.*;
 import java.math.*;
 import java.util.*;
 
+import database.ProductDB;
+
 public class ProductController {
-	private List<Product> products; // God java-etik
+	private List<Product> products;
+	private ProductDB productDB;
 
 	public ProductController() {
 		this.products = new ArrayList<>();
+		this.products = new ProductDB().findAllProducts();
+        this.productDB = new ProductDB();
 	}
 
-	public void createProduct(String name, Date expirationDate, String type, int stock, int minStock, BigDecimal price, int barcode) {
-		Product product = new Product(name, expirationDate, type, stock, minStock, price, barcode);
-		products.add(product);
+	public void createProduct(String name, Date expirationDate, String type, int stock, int minStock, BigDecimal price,
+			int barcode) {
+		Product newProduct = new Product(name, expirationDate, type, stock, minStock, price, barcode);
+		products.add(newProduct);
+
+
+		productDB.createProduct(name, expirationDate, type, stock, minStock, price, barcode);
 	}
 
 	public List<Product> findAllProducts() {
 		return products;
 	}
-	
-//	public void updateProduct(int barcode, int newStock, BigDecimal newPrice) {
-//		Product product = getProductByBarcode(barcode);
-//		if (product != null) {
-//			product.setStock(newStock);
-//			product.setPrice(newPrice);
-//		} else {
-//			System.out.println("Product not found.");
-//		}
-//	}
-//
-//	public void removeProduct(int barcode) {
-//		Product product = getProductByBarcode(barcode);
-//		if (product != null) {
-//			products.remove(product);
-//		} else {
-//			System.out.println("Product not found.");
-//		}
-//	}
-
 }

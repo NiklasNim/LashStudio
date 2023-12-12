@@ -1,32 +1,25 @@
 package controller;
+
 import java.util.*;
 import model.Service;
-
+import database.*;
 
 public class ServiceController {
 	private List<Service> services;
-	
+	private ServiceDB serviceDB;
+
 	public ServiceController() {
 		this.services = new ArrayList<>();
-	}
-	
-	public List<Service> getAllServices(){
-		return services; 
+		this.serviceDB = new ServiceDB();
+        this.services = serviceDB.findAllServices();
 	}
 
-	public void addServiceById(int serviceId, Service newService) {
-		for (Service existingService : services) {
-			if (existingService.getServiceId() == serviceId) {
-				System.out.println("Service with ID " + serviceId + " already exists.");
-				return;
-			}
-		}
-		services.add(newService);
-		System.out.println("Service with ID " + serviceId + " added successfully.");
+	public List<Service> getAllServices() {
+		return services;
 	}
-	
-	public void addServiceById(int serviceId) {
-		for ()
+
+	public void createService(Service newService) {
+		serviceDB.createService(newService);
 	}
 
 }
