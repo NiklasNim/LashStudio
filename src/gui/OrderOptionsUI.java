@@ -11,13 +11,14 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
-public class OrderOptions extends JFrame {
+public class OrderOptionsUI extends JFrame {
 
     private JPanel contentPane;
     private MainWindow mainWindow; 
 
-    public OrderOptions() {
+    public OrderOptionsUI() {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
@@ -37,7 +38,7 @@ public class OrderOptions extends JFrame {
         JButton btnNewButton = new JButton("Opret Ordre");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // BookingClicked();
+               createOrderClicked();
             }
         });
         btnNewButton.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -55,7 +56,7 @@ public class OrderOptions extends JFrame {
         JButton btnNewButton_1 = new JButton("Slet Ordre");
         btnNewButton_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // CustomerClicked();
+                // deleteOrderClicked();
             }
         });
         btnNewButton_1.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -77,4 +78,13 @@ public class OrderOptions extends JFrame {
         setVisible(false);
         mainWindow.setVisible(true);
     }
+
+    private void createOrderClicked() {
+        CreateOrderUI createOrder = new CreateOrderUI();
+        createOrder.setVisible(true);
+    }
+//    private void deleteOrderClicked() {
+//        OrderOverviewUI orderOverview = new OrderOverviewUI();
+//        orderOverview.setVisible(true);
+//    }
 }

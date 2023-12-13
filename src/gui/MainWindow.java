@@ -74,17 +74,17 @@ public class MainWindow extends JFrame {
     }
 
     private void openBookingOptions() {
-        BookingOptions bookingOptions = new BookingOptions();
+        BookingOptionsUI bookingOptions = new BookingOptionsUI();
         bookingOptions.setVisible(true);
     }
 
     private void openOrderOptions() {
-        OrderOptions orderOptions = new OrderOptions();
+        OrderOptionsUI orderOptions = new OrderOptionsUI();
         orderOptions.setVisible(true);
     }
 
     private void openCustomerOptions() {
-        CustomerOptions customerOptions = new CustomerOptions();
+        CustomerOptionsUI customerOptions = new CustomerOptionsUI();
         customerOptions.setVisible(true);
     }
 }

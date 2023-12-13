@@ -10,9 +10,12 @@ public class CreateOrderUI extends JFrame {
     private JTextField textField3;
     private JTextField textField4;
     private JTextField textField5;
-    private JTextField textField6;
+    private JTextField textField6;	
+    private JTextField textField7;
     private JButton btnSubmit;
     private JButton btnNewButton;
+	private MainWindow mainWindow;
+
 
     public CreateOrderUI() {
         initialize();
@@ -22,7 +25,7 @@ public class CreateOrderUI extends JFrame {
         setTitle("Opret ordre");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
-        getContentPane().setLayout(new GridLayout(7, 2, 10, 10));
+        getContentPane().setLayout(new GridLayout(8, 2, 10, 10));
 
         JLabel lblNewLabel1 = new JLabel("Indtast produktnavn:");
         getContentPane().add(lblNewLabel1);
@@ -65,10 +68,25 @@ public class CreateOrderUI extends JFrame {
         textField6 = new JTextField();
         getContentPane().add(textField6);
         textField6.setColumns(10);
+        
+        JLabel lblNewLabel7 = new JLabel("Indtast antal:");
+        getContentPane().add(lblNewLabel7);
+
+        textField7 = new JTextField();
+        getContentPane().add(textField7);
+        textField7.setColumns(10);
 
         btnSubmit = new JButton("Tilbage");
         btnSubmit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	goBackToMain();
+            }
+        });
+        getContentPane().add(btnSubmit);
+        
+        btnNewButton = new JButton("Udfør");
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
 
                 String text1 = textField1.getText();
                 String text2 = textField2.getText();
@@ -76,17 +94,16 @@ public class CreateOrderUI extends JFrame {
                 String text4 = textField4.getText();
                 String text5 = textField5.getText();
                 String text6 = textField6.getText();
+                String text7 = textField7.getText();
                 System.out.println("Text from Field 1: " + text1);
                 System.out.println("Text from Field 2: " + text2);
                 System.out.println("Text from Field 3: " + text3);
                 System.out.println("Text from Field 4: " + text4);
                 System.out.println("Text from Field 5: " + text5);
                 System.out.println("Text from Field 6: " + text6);
-            }
+                System.out.println("Text from Field 7: " + text7);
+        	}
         });
-        getContentPane().add(btnSubmit);
-        
-        btnNewButton = new JButton("Udfør");
         getContentPane().add(btnNewButton);
     }
 
@@ -101,5 +118,9 @@ public class CreateOrderUI extends JFrame {
                 }
             }
         });
+    }
+    private void goBackToMain() {
+        setVisible(false);
+        mainWindow.setVisible(true);
     }
 }

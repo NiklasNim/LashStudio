@@ -12,12 +12,12 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class BookingOptions extends JFrame {
+public class CustomerOptionsUI extends JFrame {
 
     private JPanel contentPane;
-    private MainWindow mainWindow; // Reference til hovedmenuen
+    private MainWindow mainWindow;
 
-    public BookingOptions() {
+    public CustomerOptionsUI() {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
@@ -27,14 +27,14 @@ public class BookingOptions extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(new GridLayout(0, 1, 0, 0));
 
-        JLabel lblNewLabel = new JLabel("Booking valgmuligheder");
+        JLabel lblNewLabel = new JLabel("Kunde valgmuligheder");
         lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 40));
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(lblNewLabel);
 
         JPanel buttonPanel = new JPanel(new GridLayout(1, 4, 10, 0));
 
-        JButton btnNewButton = new JButton("Opret Booking");
+        JButton btnNewButton = new JButton("Opret Kunde");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // BookingClicked();
@@ -43,7 +43,7 @@ public class BookingOptions extends JFrame {
         btnNewButton.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         buttonPanel.add(btnNewButton);
 
-        JButton btnNewButton_2 = new JButton("Redigér booking");
+        JButton btnNewButton_2 = new JButton("Redigér Kunde");
         btnNewButton_2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // OrderClicked();
@@ -52,7 +52,7 @@ public class BookingOptions extends JFrame {
         btnNewButton_2.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         buttonPanel.add(btnNewButton_2);
 
-        JButton btnNewButton_1 = new JButton("Slet booking");
+        JButton btnNewButton_1 = new JButton("Slet Kunde");
         btnNewButton_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // CustomerClicked();

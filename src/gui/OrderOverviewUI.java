@@ -15,11 +15,13 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 // import connectDatabase.*; 
 import database.*;
+import java.awt.Font;
 
 public class OrderOverviewUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
+	private OrderOptionsUI orderOptions; 
 
 	/**
 	 * Launch the application.
@@ -36,14 +38,15 @@ public class OrderOverviewUI extends JFrame {
 			}
 		});
 	}
-	Connection connection=null; 
+	// Connection connection=null; 
 	/**
 	 * Create the frame.
 	 * @throws SQLException 
 	 */
 	public OrderOverviewUI() throws SQLException {
+		setTitle("Produkt oversigt");
 		// connection=TryToConnect.(); //Arbejder på connection
-		connection=ProductDB.connect(); 
+		//connection=ProductDB.connect(); 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -66,5 +69,14 @@ public class OrderOverviewUI extends JFrame {
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
+		
+		JLabel lblTekstOverTabel = new JLabel("Oversigt over produkter:");
+		lblTekstOverTabel.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		lblTekstOverTabel.setBounds(10, 18, 231, 29);
+		contentPane.add(lblTekstOverTabel);
 	}
 }
+//    private void goBackToOrderOptions() { // klar til tilknytning af knap
+//        setVisible(false);
+//        orderOptions.setVisible(true);
+//    }
