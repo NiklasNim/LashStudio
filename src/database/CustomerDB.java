@@ -13,27 +13,28 @@ public class CustomerDB implements CustomerDBIF {
 		return DriverManager.getConnection(URL, USER, PASSWORD);
 	}
 
-	public List<Customer> findAllCustomers() {
-		List<Customer> customers = new ArrayList<>();
-
-		try (Connection connection = connect();
-				PreparedStatement statement = connection.prepareStatement("SELECT * FROM customers");
-				ResultSet resultSet = statement.executeQuery()) {
-
-			while (resultSet.next()) {
-				String firstName = resultSet.getString("firstName");
-				String lastName = resultSet.getString("lastName");
-				int phone = resultSet.getInt("phone");
-
-				Customer customer = new Customer(firstName, lastName, phone);
-				customers.add(customer);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return customers;
-	}
+// Er dette relevant for vores use case? Hvis det ikke bruges skal det ikke med	
+//	public List<Customer> findAllCustomers() {
+//		List<Customer> customers = new ArrayList<>();
+//
+//		try (Connection connection = connect();
+//				PreparedStatement statement = connection.prepareStatement("SELECT * FROM customers");
+//				ResultSet resultSet = statement.executeQuery()) {
+//
+//			while (resultSet.next()) {
+//				String firstName = resultSet.getString("firstName");
+//				String lastName = resultSet.getString("lastName");
+//				int phone = resultSet.getInt("phone");
+//
+//				Customer customer = new Customer(firstName, lastName, phone);
+//				customers.add(customer);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return customers;
+//	}
 
 	public void createCustomer(Customer newCustomer) {
 		try (Connection connection = connect()) {

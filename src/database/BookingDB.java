@@ -1,5 +1,5 @@
 package database;
 
-public class BookingDB {
+public class BookingDB implements BookingDBIF {
 
 }

@@ -1,45 +1,85 @@
 package controller;
 import java.util.ArrayList;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
-import database.BookingDBIF;
-import model.Booking;
-import model.Customer;
-import model.Service;
+import database.*;
+import model.*;
+
+
 
 public class BookingController {
-	private BookingController bookingController;
+	private ServiceController serviceController;
 	private CustomerController customerController;
-	private BookingDBIF bookingDBIF;
-	private List<Booking> bookings;
-	private List<Customer> customers;
+	private BookingDBIF bookingDB;
+	private CustomerDBIF customerDB;
+	private BookingLineController bookingLine;
+	private Booking booking;
+	private ServiceDBIF serviceDB;
+
 
 	public BookingController() {
-		this.bookings = new ArrayList<>();
+		this.bookingDB = new BookingDB();
+		this.bookingLine = new BookingLineController();
+		this.serviceController = new ServiceController();
+		this.customerController = new CustomerController();
+		this.serviceDB = new ServiceDB();
 	}
+	
+	
+	public Booking createBooking(LocalDate bookingDate, int bookingId) {
+		this.booking = new Booking(bookingDate, bookingId);
+		return booking;
+	}
+	
+	
+	//skal laves færdigt - skal vi have bookingLineController??
+	public void addBookingLine(Service service, int quantity, BigDecimal unitPrice) {
+		this.bookingLine = new BookingLine(service, quantity, unitPrice);
+	}
+	
+	
+	
+	public void addCustomerByPhone(int phone) {
+		Customer c = customerController.findCustomerByPhone(phone);
+		booking.addCustomer(c);	
+	}
+	
+	
+	
+	public List<Services> findAllServiceDates(LocalDate date) {
+		return serviceDB.findAllServiceDates(date);
+	}
+	
+	
 	
 	public List<Booking> getAllBookings() {
-		return bookings;
+		return bookingDB.getBookings();
 	}
 	
-	public Customer findCustomerByPhone(int phone) {
-		for (Customer customer : customers) {
-			if (customer.getPhone() == phone) {
-				return customer;
-			}
-		}
-		return null;
-	}
-}
-	}
+	
+//		for (Customer customer : customers) {
+//			if (customer.getPhone() == phone) {
+//				return customer;
+//			}
+//		}
+//		return null;
+//	}
+
+	
 	
 	list all services
 	
 	
 
-	addservicebyId
+	public void addServiceById(int serviceID) {
+		
+	}
 	
 	
-	findavailable services
+	public void findAvailableTimeSlot(int serviceId) {
+		return list<TimeSlot>;
+	}
 	
 	addservicedate
 	

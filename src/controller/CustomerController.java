@@ -22,8 +22,8 @@ public class CustomerController {
         customerDB.createCustomer(newCustomer);
     }
 
-    public List<Customer> findAllCustomers() {
-        return customers;
+    public List<Customer> findAllCustomersByPhone(int phone) {
+        return customerDB.findAllCustomersByPhone(phone);
     }
 
     public Customer findCustomerByPhone(int phone) {
