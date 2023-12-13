@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class Service {
+	private Location location;
 	private int serviceId;
 	private Timestamp timePeriod; // tjek lige
 	private BigDecimal price; // tjek lige ud
@@ -56,6 +57,14 @@ public class Service {
 
 	public void setServiceType(String serviceType) {
 		this.serviceType = serviceType;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 }

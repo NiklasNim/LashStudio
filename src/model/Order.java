@@ -1,21 +1,23 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
+//import java.util.Date;
 
 public class Order {
-	private Date orderDate;
+	private LocalDate orderDate;
+	//private Date orderDate;
 	private int orderId;
 
-	public Order(Date orderDate, int orderId) {
+	public Order(LocalDate orderDate, int orderId) {
 		this.orderDate = orderDate;
 		this.orderId = orderId;
 	}
 
-	public Date getOrderDate() {
+	public LocalDate getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(LocalDate orderDate) {
 		this.orderDate = orderDate;
 	}
 
