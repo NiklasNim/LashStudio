@@ -13,22 +13,22 @@ public class BookingController {
 	private CustomerController customerController;
 	private BookingDBIF bookingDB;
 	private CustomerDBIF customerDB;
-	private BookingLineController bookingLine;
+	private BookingLine bookingLine;
 	private Booking booking;
 	private ServiceDBIF serviceDB;
 
 
 	public BookingController() {
 		this.bookingDB = new BookingDB();
-		this.bookingLine = new BookingLineController();
 		this.serviceController = new ServiceController();
 		this.customerController = new CustomerController();
 		this.serviceDB = new ServiceDB();
+		//this.bookingLine = new BookingLine();
 	}
 	
 	
-	public Booking createBooking(LocalDate bookingDate, int bookingId) {
-		this.booking = new Booking(bookingDate, bookingId);
+	public Booking createBooking(LocalDate bookingDate, int bookingId, Customer customer) {
+		this.booking = new Booking(bookingDate, bookingId, customer);
 		return booking;
 	}
 	
@@ -47,15 +47,25 @@ public class BookingController {
 	
 	
 	
-	public List<Services> findAllServiceDates(LocalDate date) {
+	public List<Service> findAllServiceDates(LocalDate date) {
 		return serviceDB.findAllServiceDates(date);
 	}
 	
 	
+	public void addServiceById(int serviceId, int quantity, BigDecimal unitPrice) {
+		Service s = serviceController.findServiceById(serviceId);
+		addBookingLine(s, quantity, unitPrice);
+	}
+	
+	
+	public void findAvailableServiceDates(LocalDate localDate) {
+		return list<TimeSlot>;
+	}
 	
 	public List<Booking> getAllBookings() {
 		return bookingDB.getBookings();
 	}
+	
 	
 	
 //		for (Customer customer : customers) {
@@ -68,20 +78,12 @@ public class BookingController {
 
 	
 	
-	list all services
 	
 	
-
-	public void addServiceById(int serviceID) {
+	
+	public void addservicedate() {
 		
 	}
-	
-	
-	public void findAvailableTimeSlot(int serviceId) {
-		return list<TimeSlot>;
-	}
-	
-	addservicedate
 	
 	
 }

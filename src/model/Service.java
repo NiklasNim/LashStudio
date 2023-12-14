@@ -23,7 +23,7 @@ public class Service {
 		return serviceId;
 	}
 
-	public void setService(int serviceId) {
+	public void setServiceId(int serviceId) {
 		this.serviceId = serviceId;
 	}
 

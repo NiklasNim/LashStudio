@@ -2,20 +2,58 @@ package database;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.*;
+
+
+import connectDatabase.DatabaseConnection;
 import model.Service;
 
-public class ServiceDB implements ServiceDBIF {
-	private static final String URL = "jdbc:mysql://localhost:3306/your_database";
-	private static final String USER = "your_username";
-	private static final String PASSWORD = "your_password";
 
-	public static Connection connect() throws SQLException {
-		return DriverManager.getConnection(URL, USER, PASSWORD);
-	}
+public class ServiceDB implements ServiceDBIF {
+	
+	
+	public static ServiceDB instance;
+	
+		public static ServiceDB getInstance() {
+			if (instance == null)
+			{
+				instance = new ServiceDB();
+			}
+			return instance;
+		}
+		
+	
+	public Service findServiceById(int serviceId) {
+		String sqlQuery = "SELECT * from service where serviceId = " + serviceId;
+		 try {
+	        	DatabaseConnection dbConn = DatabaseConnection.getInstance();
+	        	Statement sqlStat = dbConn.getConnection().createStatement();
+	               ResultSet rs = sqlStat.executeQuery(sqlQuery);
+	               System.out.println("Finding service with serviceId " + serviceId);
+	            while(rs.next()) {
+	                   String location = rs.getString("location");
+	                   int serviceID = rs.getInt("serviceId");
+	                   Timestamp timePeriod = rs.getTimestamp("timePeriod");
+	                   BigDecimal price = rs.getBigDecimal("price");
+	                   String description = rs.getString("description");
+	                   String serviceType = rs.getString("serviceType");
+	                   System.out.println("Found service " + location + "\t" + serviceID + "\t" + timePeriod + "\t" + price + "\t" + description + "\t" + serviceType);      
+	                   
+	                   return new Service(serviceId, timePeriod, price, description, serviceType);
+	                }
+	             }     
+	             catch(SQLException sExc) {
+	                    sExc.printStackTrace();    
+	            }
+	             return null;
+	     	
+	     	}
+
 
 	public List<Service> findAllServices() {
 		List<Service> services = new ArrayList<>();
+		
 
 		try (Connection connection = connect();
 				PreparedStatement statement = connection.prepareStatement("SELECT * FROM services");
@@ -37,6 +75,9 @@ public class ServiceDB implements ServiceDBIF {
 
 		return services;
 	}
+	
+	
+	
 
 	public void createService(Service newService) {
 		try (Connection connection = connect()) {
@@ -59,6 +100,13 @@ public class ServiceDB implements ServiceDBIF {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+
+	@Override
+	public List<Service> findAllServiceDates(LocalDate date) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

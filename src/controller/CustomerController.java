@@ -22,9 +22,9 @@ public class CustomerController {
         customerDB.createCustomer(newCustomer);
     }
 
-    public List<Customer> findAllCustomersByPhone(int phone) {
-        return customerDB.findAllCustomersByPhone(phone);
-    }
+//    public List<Customer> findAllCustomersByPhone(int phone) {
+//        return customerDB.findAllCustomersByPhone(phone);
+//    }
 
     public Customer findCustomerByPhone(int phone) {
         return customerDB.findCustomerByPhone(phone);

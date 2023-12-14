@@ -17,6 +17,11 @@ public class ServiceController {
 	public List<Service> getAllServices() {
 		return services;
 	}
+	
+	public Service findServiceById(int serviceId) {
+		
+		return serviceDB.findServiceById(serviceId);
+	}
 
 	public void createService(Service newService) {
 		serviceDB.createService(newService);
