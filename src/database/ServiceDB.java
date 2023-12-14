@@ -104,9 +104,9 @@ public class ServiceDB implements ServiceDBIF {
 	}*/
 	
 	
-	public LocalDate findAvailableServiceDates(int serviceId) {
-	    String sqlQuery = "SELECT timePeriod FROM services WHERE serviceId = ?";
-	    LocalDate availableTime = null;
+	public LocalDateTime findAvailableServiceDates(int serviceId) {
+	    String sqlQuery = "SELECT timePeriod FROM service WHERE serviceId = ?";
+	    LocalDateTime availableTime = null;
 
 	    try {DatabaseConnection dbConn = DatabaseConnection.getInstance();
 	         PreparedStatement preparedStatement = dbConn.getConnection().prepareStatement(sqlQuery);
@@ -117,7 +117,7 @@ public class ServiceDB implements ServiceDBIF {
 
 	        while (rs.next()) {
 	            Timestamp timePeriod = rs.getTimestamp("timePeriod");
-	            availableTime = timePeriod.toLocalDateTime().toLocalDate();
+	            availableTime = timePeriod.toLocalDateTime();
 	            System.out.println("Found available time: " + availableTime);
 	        }
 	    } catch (SQLException sExc) {

@@ -1,6 +1,7 @@
 package database;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import controller.*;
@@ -14,5 +15,5 @@ public interface ServiceDBIF {
 
 	List<Service> findAllServiceDates(LocalDate date);
 
-	LocalDate findAvailableServiceDates(int serviceId);
+	LocalDateTime findAvailableServiceDates(int serviceId);
 }
