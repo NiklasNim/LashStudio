@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 public class CustomerOptionsUI extends JFrame {
 
     private JPanel contentPane;
-    private MainWindow mainWindow;
 
     public CustomerOptionsUI() {
 
@@ -37,7 +36,7 @@ public class CustomerOptionsUI extends JFrame {
         JButton btnNewButton = new JButton("Opret Kunde");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // BookingClicked();
+                createCustomerClicked();
             }
         });
         btnNewButton.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -75,6 +74,12 @@ public class CustomerOptionsUI extends JFrame {
 
     private void goBackToMain() {
         setVisible(false);
-        mainWindow.setVisible(true);
+        MainWindow mainWindow = new MainWindow();
+		mainWindow.setVisible(true);
+    }
+    private void createCustomerClicked() {
+    	setVisible(false);
+    	CreateCustomerUI createCustomerUI = new CreateCustomerUI();
+		createCustomerUI.setVisible(true); 
     }
 }
