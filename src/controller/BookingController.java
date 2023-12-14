@@ -2,6 +2,7 @@ package controller;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import database.*;
 import model.*;
@@ -40,17 +41,10 @@ public class BookingController {
 	
 	
 	
-	public void addCustomerByPhone(int phone) {
+	public void findCustomerByPhone(int phone) {
 		Customer c = customerController.findCustomerByPhone(phone);
 		booking.addCustomer(c);	
 	}
-	
-	
-	
-	public List<Service> findAllServiceDates(LocalDate date) {
-		return serviceDB.findAllServiceDates(date);
-	}
-	
 	
 	public void addServiceById(int serviceId, int quantity, BigDecimal unitPrice) {
 		Service s = serviceController.findServiceById(serviceId);
@@ -58,7 +52,7 @@ public class BookingController {
 	}
 	
 	
-	public LocalDate findAvailableServiceDates(int serviceId) {
+	public LocalDateTime findAvailableServiceDates(int serviceId) {
 		return serviceDB.findAvailableServiceDates(serviceId);
 	}
 	

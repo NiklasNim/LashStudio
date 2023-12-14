@@ -9,11 +9,13 @@ import model.Service;
 
 public interface ServiceDBIF {
 
-	List<Service> findAllServices();
+	//List<Service> findAllServices();
 
-	void createService(Service newService);
+	//void createService(Service newService);
 
-	List<Service> findAllServiceDates(LocalDate date);
+	//List<Service> findAllServiceDates(LocalDate date);
+	
+	Service findServiceById(int serviceId);
 
 	LocalDateTime findAvailableServiceDates(int serviceId);
 }
