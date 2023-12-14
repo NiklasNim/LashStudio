@@ -16,7 +16,6 @@ import java.sql.SQLException;
 public class OrderOptionsUI extends JFrame {
 
     private JPanel contentPane;
-    private MainWindow mainWindow; 
 
     public OrderOptionsUI() {
 
@@ -76,7 +75,8 @@ public class OrderOptionsUI extends JFrame {
 
     private void goBackToMain() {
         setVisible(false);
-        mainWindow.setVisible(true);
+        MainWindow mainWindow = new MainWindow();
+		mainWindow.setVisible(true);
     }
 
     private void createOrderClicked() {

@@ -3,6 +3,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class CreateOrderUI extends JFrame {
     private JTextField textField1;
@@ -14,8 +18,10 @@ public class CreateOrderUI extends JFrame {
     private JTextField textField7;
     private JButton btnSubmit;
     private JButton btnNewButton;
-	private MainWindow mainWindow;
 
+    private static final String DATABASE_URL = "jdbc:mysql://localhost:3306/your_database";
+    private static final String DATABASE_USER = "your_username";
+    private static final String DATABASE_PASSWORD = "your_password";
 
     public CreateOrderUI() {
         initialize();
@@ -84,7 +90,7 @@ public class CreateOrderUI extends JFrame {
         });
         getContentPane().add(btnSubmit);
         
-        btnNewButton = new JButton("Udfør");
+        btnNewButton = new JButton("Opret");
         btnNewButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
 
@@ -121,6 +127,31 @@ public class CreateOrderUI extends JFrame {
     }
     private void goBackToMain() {
         setVisible(false);
-        mainWindow.setVisible(true);
+		OrderOptionsUI orderOptionsUI = new OrderOptionsUI();
+		orderOptionsUI.setVisible(true);
     }
+//    private void opretClicked() {
+//        try {
+//            Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
+//
+//            String sql = "INSERT INTO your_table (firstname, lastname, telefon) VALUES (?, ?, ?)";
+//
+//            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+//                // Set values for the parameters
+//                preparedStatement.setString(1, textFirstName.getText());
+//                preparedStatement.setString(2, textLastName.getText());
+//                preparedStatement.setString(3, textPhone.getText());
+//                preparedStatement.setString(4, textPhone.getText());
+//                preparedStatement.setString(5, textPhone.getText());
+//                preparedStatement.setString(6, textPhone.getText());
+//                preparedStatement.setString(7, textPhone.getText());
+//
+//                preparedStatement.executeUpdate();
+//            }
+//
+//            connection.close();
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
 }

@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 public class BookingOptionsUI extends JFrame {
 
     private JPanel contentPane;
-    private MainWindow mainWindow; // Reference til hovedmenuen
 
     public BookingOptionsUI() {
 
@@ -75,6 +74,7 @@ public class BookingOptionsUI extends JFrame {
 
     private void goBackToMain() {
         setVisible(false);
-        mainWindow.setVisible(true);
+        MainWindow mainWindow = new MainWindow();
+		mainWindow.setVisible(true);
     }
 }
