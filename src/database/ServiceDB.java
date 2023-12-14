@@ -3,6 +3,7 @@ package database;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -51,7 +52,7 @@ public class ServiceDB implements ServiceDBIF {
 	     	}
 
 
-	public List<Service> findAllServices() {
+	/*public List<Service> findAllServices() {
 		List<Service> services = new ArrayList<>();
 		
 
@@ -74,12 +75,12 @@ public class ServiceDB implements ServiceDBIF {
 		}
 
 		return services;
-	}
+	}*/
 	
 	
 	
 
-	public void createService(Service newService) {
+	/*public void createService(Service newService) {
 		try (Connection connection = connect()) {
 			String sql = "INSERT INTO services (timePeriod, price, description, serviceType) VALUES (?, ?, ?, ?)";
 
@@ -100,13 +101,31 @@ public class ServiceDB implements ServiceDBIF {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
+	
+	
+	public LocalDate findAvailableServiceDates(int serviceId) {
+	    String sqlQuery = "SELECT timePeriod FROM services WHERE serviceId = ?";
+	    LocalDate availableTime = null;
 
+	    try {DatabaseConnection dbConn = DatabaseConnection.getInstance();
+	         PreparedStatement preparedStatement = dbConn.getConnection().prepareStatement(sqlQuery);
+	    	
+	        preparedStatement.setInt(1, serviceId);
+	        ResultSet rs = preparedStatement.executeQuery();
+	        System.out.println("Finding available time for service with serviceId " + serviceId);
 
-	@Override
-	public List<Service> findAllServiceDates(LocalDate date) {
-		// TODO Auto-generated method stub
-		return null;
+	        while (rs.next()) {
+	            Timestamp timePeriod = rs.getTimestamp("timePeriod");
+	            availableTime = timePeriod.toLocalDateTime().toLocalDate();
+	            System.out.println("Found available time: " + availableTime);
+	        }
+	    } catch (SQLException sExc) {
+	        sExc.printStackTrace();
+	    }
+	    return availableTime;
 	}
 
 }
+
+

@@ -58,8 +58,8 @@ public class BookingController {
 	}
 	
 	
-	public void findAvailableServiceDates(LocalDate localDate) {
-		return list<TimeSlot>;
+	public LocalDate findAvailableServiceDates(int serviceId) {
+		return serviceDB.findAvailableServiceDates(serviceId);
 	}
 	
 	public List<Booking> getAllBookings() {
