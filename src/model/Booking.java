@@ -7,13 +7,13 @@ import java.util.*;
 public class Booking {
 	private LocalDate bookingDate;
 	private int bookingId;
-	private List<BookingLine> booking;
+	private List<BookingLine> bookingLines;
 	private Customer c;
 
 	public Booking(LocalDate bookingDate, int bookingId, Customer c) {
 		this.bookingDate = bookingDate;
 		this.bookingId = bookingId;
-		this.booking = new ArrayList<>();
+		this.bookingLines = new ArrayList<>();
 		this.c = c;
 	}
 
@@ -34,11 +34,11 @@ public class Booking {
 		this.bookingId = bookingId;
 	}
 	
-	public void addBooking(BookingLine b) {
-		booking.add(b);
-	}
-	
 	public void addCustomer(Customer c) {
 		this.c = c;
+	}
+	
+	public void addBookingLine(BookingLine bookingLine) {
+	this.bookingLines.add(bookingLine);
 	}
 }

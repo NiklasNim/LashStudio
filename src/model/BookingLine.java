@@ -1,6 +1,7 @@
 package model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class BookingLine {
 	private Service service;
@@ -13,6 +14,7 @@ public class BookingLine {
 		this.service = service;
 		this.quantity = quantity;
 		this.unitPrice = unitPrice;
+
 	}
 
 	public int getQuantity() {
