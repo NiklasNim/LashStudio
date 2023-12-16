@@ -12,9 +12,8 @@ import model.BookingLine;
 public class BookingDB implements BookingDBIF {
 	
 
-	public int addBooking(Booking booking) {
+	public void addBooking(Booking booking) {
 	    String sqlQuery = "INSERT INTO Booking values (?, ?)";
-	    int bookingId = -1;  // Default til en fejlindikator
 
 	    try {
 	        DatabaseConnection dbConn = DatabaseConnection.getInstance();
@@ -31,7 +30,10 @@ public class BookingDB implements BookingDBIF {
 
 	            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
 	                if (generatedKeys.next()) {
-	                    bookingId = generatedKeys.getInt(1);  // Hent det genererede booking-id
+	                	int bookingId = generatedKeys.getInt(1);  // Hent det genererede booking-id
+	                	for (BookingLine bookingLine : booking.getBookingLines())
+	        	        	addBookingLine(bookingLine, bookingId);
+	               
 	                } else {
 	                    throw new SQLException("Oprettelse af booking fejlede, intet ID opnået.");
 	                }
@@ -41,10 +43,7 @@ public class BookingDB implements BookingDBIF {
 	        e.printStackTrace();
 	        System.out.println("Error occurred while adding the booking: " + e.getMessage());
 	    }
-	    for (BookingLine bookingLine : booking.getBookingLines())
-	        	addBookingLine(bookingLine, bookingId);
-	    
-	    return bookingId;  // Returnér det genererede id eller -1, hvis der opstod en fejl
+
 	}
 
 	

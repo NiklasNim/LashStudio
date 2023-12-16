@@ -107,37 +107,10 @@ public class BookingController {
             }
 
             // Gem bookingen i databasen
-            int bookingId = bookingDB.addBooking(newBooking);
+            	bookingDB.addBooking(newBooking);
         } else {
             throw new RuntimeException("Tidsplanen er ikke tilgængelig for booking.");
         }
     }        
         
-        
-        
-	
-	private void completeBooking(int scheduleId) {
-	    Schedule selectedSchedule = scheduleList.stream()
-	                                .filter(schedule -> schedule.getScheduleId() == scheduleId)
-	                                .findFirst()
-	                                .orElse(null);
-
-	    if (selectedSchedule != null && canBook(scheduleId)) {
-	        
-	        int serviceId = selectedSchedule.getScheduleId();
-       
-	        Service service = serviceController.findServiceById(serviceId);
-	        BigDecimal unitPrice = service.getPrice();
-        
-	        BookingLine bookingLine = new BookingLine(service, unitPrice);
-	        booking.addBookingLine(bookingLine);
- 
-	        scheduleDB.markScheduleAsBooked(selectedSchedule);
-
-	        bookingDB.addBooking(booking);
-
-	    } else {
-	        System.out.println("Kan ikke fuldføre bookingen, tidspunktet er ikke tilgængeligt.");
-	    }
-	}
 }
