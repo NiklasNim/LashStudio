@@ -7,8 +7,8 @@ public class Hair extends Service {
 
 	private String gender;
 
-	public Hair(int serviceId, Timestamp timePeriod, BigDecimal price, String description, String serviceType, String gender) {
-		super(serviceId, timePeriod, price, description, serviceType);
+	public Hair(int serviceId, Timestamp timePeriod, BigDecimal price, String description, String serviceType, int locationId, String gender) {
+		super(serviceId, price, description, serviceType, locationId);
 		this.gender = gender;
 	}
 

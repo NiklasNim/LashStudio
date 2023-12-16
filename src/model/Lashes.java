@@ -7,8 +7,8 @@ public class Lashes extends Service {
 
 	private String volume;
 
-	public Lashes(int serviceId, Timestamp timePeriod, BigDecimal price, String description, String serviceType, String volume) {
-		super(serviceId, timePeriod, price, description, serviceType);
+	public Lashes(int serviceId, Timestamp timePeriod, BigDecimal price, String description, String serviceType, int locationId, String volume) {
+		super(serviceId, price, description, serviceType, locationId);
 		this.volume = volume;
 	}
 

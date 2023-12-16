@@ -7,8 +7,8 @@ public class Nails extends Service {
 
 	private boolean extension;
 
-	public Nails(int serviceId, Timestamp timePeriod, BigDecimal price, String description, String serviceType, boolean extension) {
-		super(serviceId, timePeriod, price, description, serviceType);
+	public Nails(int serviceId, Timestamp timePeriod, BigDecimal price, String description, String serviceType, int locationId, boolean extension) {
+		super(serviceId, price, description, serviceType, locationId);
 		this.extension = extension;
 	}
 
