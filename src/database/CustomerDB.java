@@ -3,16 +3,7 @@ import model.Customer;
 import java.sql.*;
 import connectDatabase.DatabaseConnection;
 
-
 public class CustomerDB implements CustomerDBIF {
-
-	public static CustomerDB instance;
-    public static CustomerDB getInstance() {
-        if (instance == null) {
-            instance = new CustomerDB();
-        }
-        return instance;
-    }
 
     public void createCustomer(Customer newCustomer) {
         String sql = "INSERT INTO customer (firstName, lastName, phone) VALUES (?, ?, ?)";
@@ -41,12 +32,12 @@ public class CustomerDB implements CustomerDBIF {
         Customer foundCustomer = null;
         String sql = "SELECT * FROM customer WHERE phone = ?";
 
-        System.out.println("Søger efter kunde med telefonnummer: " + phone); // Log telefonnummeret
+        System.out.println("Søger efter kunde med telefonnummer: " + phone);
 
         try {
             DatabaseConnection dbConn = DatabaseConnection.getInstance();
             try (PreparedStatement statement = dbConn.getConnection().prepareStatement(sql)) {
-                statement.setInt(1, phone); // Telefonnummeret håndteres som en int
+                statement.setInt(1, phone);
 
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
@@ -56,14 +47,14 @@ public class CustomerDB implements CustomerDBIF {
                         int retrievedPhone = resultSet.getInt("phone");
 
                         foundCustomer = new Customer(customerId, firstName, lastName, retrievedPhone);
-                        System.out.println("Kunde fundet: " + foundCustomer); // Log det fundne Customer objekt
+                        System.out.println("Kunde fundet: " + foundCustomer);
                     } else {
-                        System.out.println("Ingen kunde fundet med telefonnummeret: " + phone); // Log hvis ingen kunde blev fundet
+                        System.out.println("Ingen kunde fundet med telefonnummeret: " + phone);
                     }
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Database fejl under søgning efter kunde: " + e.getMessage()); // Log en fejlmeddelelse
+            System.err.println("Database fejl under søgning efter kunde: " + e.getMessage()); 
             e.printStackTrace();
         }
 

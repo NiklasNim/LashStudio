@@ -12,10 +12,10 @@ public class BookingController {
 	private BookingDB bookingDB;
 
 	public BookingController() {
-		this.bookingDB = new BookingDB();
 		this.serviceController = new ServiceController();
 		this.customerController = new CustomerController();
 		this.scheduleController = new ScheduleController();
+		this.bookingDB = new BookingDB();
 	}
 
 	public void makeBooking(LocalDate bookingDate, int phone, int scheduleId, List<Integer> serviceIds) {

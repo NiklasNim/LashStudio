@@ -18,16 +18,15 @@ public class BookingDB implements BookingDBIF {
 	            
 	            pstmt.setDate(1, java.sql.Date.valueOf(booking.getBookingDate()));
 	            pstmt.setInt(2, booking.getCustomerId());
-	            // Sæt eventuelle andre felter her
 
 	            int affectedRows = pstmt.executeUpdate();
 	            if (affectedRows == 0) {
 	                throw new SQLException("Oprettelse af booking fejlede, ingen rækker påvirket.");
 	            }
-
+	   	            
 	            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
 	                if (generatedKeys.next()) {
-	                	int bookingId = generatedKeys.getInt(1);  // Hent det genererede booking-id
+	                	int bookingId = generatedKeys.getInt(1);
 	                	for (BookingLine bookingLine : booking.getBookingLines())
 	        	        	addBookingLine(bookingLine, bookingId);
 	               
@@ -43,7 +42,6 @@ public class BookingDB implements BookingDBIF {
 
 	}
 
-	
 	private void addBookingLine(BookingLine bookingLine, int bookingId) {
 		String sqlQuery = "INSERT INTO BookingLine values (?, ?, ?, ?)";
 	    
@@ -51,14 +49,11 @@ public class BookingDB implements BookingDBIF {
 	        DatabaseConnection dbConn = DatabaseConnection.getInstance();
 	        try (PreparedStatement pstmt = dbConn.getConnection().prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS)) {
 	            
-	        
 	            pstmt.setBigDecimal(1, bookingLine.getUnitPrice());
 	            pstmt.setInt(2, bookingLine.getServiceId());
 	            pstmt.setInt(3, bookingId);
 	            pstmt.setInt(4, bookingLine.getScheduleId());
-	            
-	            // Sæt eventuelle andre felter her
-
+	           
 	            int affectedRows = pstmt.executeUpdate();
 	            if (affectedRows == 0) {
 	                throw new SQLException("Oprettelse af booking fejlede, ingen rækker påvirket.");
