@@ -11,8 +11,8 @@ public class OrderController {
 	}
 
 	public void createOrder(Date orderDate, int orderId) {
-		Order order = new Order(orderDate, orderId);
-		orders.add(order);
+		//Order order = new Order(orderDate, orderId);
+		//orders.add(order);
 	}
 
 	public List<Order> getAllOrders() {
@@ -29,14 +29,14 @@ public class OrderController {
 		return null; // hvis ordren ikke bliver fundet
 	}
 
-	public void updateOrder(int orderId, Date newOrderDate) {
-		Order order = getOrderById(orderId);
-		if (order != null) {
-			order.setOrderDate(newOrderDate);
-		} else {
-			System.out.println("Ordren blev ikke fundet");
-		}
-	}
+//	public void updateOrder(int orderId, Date newOrderDate) {
+//		Order order = getOrderById(orderId);
+//		if (order != null) {
+//			order.setOrderDate(newOrderDate);
+//		} else {
+//			System.out.println("Ordren blev ikke fundet");
+//		}
+//	}
 
 	// Metode, der fjerner en order +
 	public void removeOrder(int orderId) {
