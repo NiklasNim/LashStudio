@@ -26,51 +26,6 @@ public class BookingController {
 		this.customerController = new CustomerController();
 		this.serviceDB = new ServiceDB();		
 	}
-	
-	public void addBookingLine(int scheduleId , Booking booking, Service service, BigDecimal unitPrice) {
-	    // Opret en ny BookingLine med service og unitPrice
-	    BookingLine newBookingLine = new BookingLine(service, unitPrice);
-
-	    // Hent serviceId fra service-objektet
-	    int serviceId = service.getServiceId();
-
-	    // Sæt serviceId, bookingId, og scheduleId på den nye BookingLine
-	    newBookingLine.setServiceId(serviceId);
-	    newBookingLine.setScheduleId(scheduleId);
-
-	    // Tilføj den nye BookingLine til booking
-	    booking.addBookingLine(newBookingLine);
-	}
-	
-	
-	public Customer findCustomerByPhone(int phone) {
-	    return customerController.findCustomerByPhone(phone);
-	}
-
-	public void addCustomerByPhone(int phone) {
-	    Customer c = findCustomerByPhone(phone);
-	    if (c != null) {
-	        booking.setCustomerId(c.getCustomerId());
-	    } else {
-	        throw new IllegalArgumentException("Kunde med telefonnummer " + phone + " blev ikke fundet.");
-	    }
-	}
-
-	
-	public LocalDateTime findAvailableServiceDates(int serviceId) {
-		return serviceDB.findAvailableServiceDates(serviceId);
-	}
-	
-	public List<Booking> getAllBookings() {
-		return bookingDB.getBookings();
-	}
-	
-		
-
-	private boolean canBook(int scheduleId) {
-        List<Schedule> scheduleList = scheduleDB.getAllAvailableSchedules();
-        return scheduleList.stream().anyMatch(schedule -> schedule.getScheduleId() == scheduleId);
-	}
 
 
 	public void makeBooking(LocalDate bookingDate, int phone, int scheduleId, List<Integer> serviceIds) {
@@ -100,4 +55,35 @@ public class BookingController {
             throw new RuntimeException("Tidsplanen er ikke tilgængelig for booking.");
         }
     }  
+	
+	public void addBookingLine(int scheduleId , Booking booking, Service service, BigDecimal unitPrice) {
+	    // Opret en ny BookingLine med service og unitPrice
+	    BookingLine newBookingLine = new BookingLine(service, unitPrice);
+
+	    // Hent serviceId fra service-objektet
+	    int serviceId = service.getServiceId();
+
+	    // Sæt serviceId, bookingId, og scheduleId på den nye BookingLine
+	    newBookingLine.setServiceId(serviceId);
+	    newBookingLine.setScheduleId(scheduleId);
+
+	    // Tilføj den nye BookingLine til booking
+	    booking.addBookingLine(newBookingLine);
+	}
+	
+	
+	private boolean canBook(int scheduleId) {
+        List<Schedule> scheduleList = scheduleDB.getAllAvailableSchedules();
+        return scheduleList.stream().anyMatch(schedule -> schedule.getScheduleId() == scheduleId);
+	}
+	
+				
+	public void addCustomerByPhone(int phone) {
+	    Customer c = customerController.findCustomerByPhone(phone);
+	    if (c != null) {
+	        booking.setCustomerId(c.getCustomerId());
+	    } else {
+	        throw new IllegalArgumentException("Kunde med telefonnummer " + phone + " blev ikke fundet.");
+	    }
+	}
 }
