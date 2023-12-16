@@ -10,7 +10,7 @@ public class Main {
         BookingController bookingController = new BookingController();
         LocalDate bookingDate = LocalDate.now();  // Eksempel dato
         int phone = 20232024;
-        int scheduleId = 82;  // Eksempel tidsplans-ID
+        int scheduleId = 85;  // Eksempel tidsplans-ID
         List<Integer> serviceIds = Arrays.asList(3, 4, 5);  // Eksempel service-IDs
 
         try {

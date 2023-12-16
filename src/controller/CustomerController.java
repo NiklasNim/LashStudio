@@ -1,11 +1,10 @@
 package controller;
-import java.util.*;
-
 import database.CustomerDB;
+import database.CustomerDBIF;
 import model.*;
 
 public class CustomerController {
-	private CustomerDB customerDB;
+	private CustomerDBIF customerDB;
 
 	public CustomerController() {
 		this.customerDB = new CustomerDB();
@@ -19,8 +18,4 @@ public class CustomerController {
     public Customer findCustomerByPhone(int phone) {
         return customerDB.findCustomerByPhone(phone);
     }
-    
-	public List<Customer> findAllCustomers() {
-		return customerDB.findAllCustomers();
-	}
 }

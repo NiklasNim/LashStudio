@@ -3,14 +3,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 import connectDatabase.DatabaseConnection;
 import model.Booking;
 import model.BookingLine;
 
 public class BookingDB implements BookingDBIF {
 	
-
 	public void addBooking(Booking booking) {
 	    String sqlQuery = "INSERT INTO Booking values (?, ?)";
 
@@ -77,13 +75,4 @@ public class BookingDB implements BookingDBIF {
 	        System.out.println("Error occurred while adding the booking: " + e.getMessage());
 	    }
 	}
-		
-	@Override
-	public List<Booking> getBookings() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
 }

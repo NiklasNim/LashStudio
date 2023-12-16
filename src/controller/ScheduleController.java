@@ -1,11 +1,11 @@
 package controller;
-
 import model.Schedule;
 import database.ScheduleDB;
+import database.ScheduleDBIF;
 import java.util.List;
 
 public class ScheduleController {
-    private ScheduleDB scheduleDB;
+    private ScheduleDBIF scheduleDB;
 
     public ScheduleController() {
         this.scheduleDB = new ScheduleDB();

@@ -1,7 +1,5 @@
 package database;
-
 import model.Customer;
-import java.util.*;
 import java.sql.*;
 import connectDatabase.DatabaseConnection;
 
@@ -15,7 +13,6 @@ public class CustomerDB implements CustomerDBIF {
         }
         return instance;
     }
-
 
     public void createCustomer(Customer newCustomer) {
         String sql = "INSERT INTO customer (firstName, lastName, phone) VALUES (?, ?, ?)";
@@ -72,36 +69,4 @@ public class CustomerDB implements CustomerDBIF {
 
         return foundCustomer;
     }
-
-	@Override
-	public List<Customer> findAllCustomers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
-
-
-//Er dette relevant for vores use case? Hvis det ikke bruges skal det ikke med	
-//	public List<Customer> findAllCustomers() {
-//		List<Customer> customers = new ArrayList<>();
-//
-//		try (Connection connection = connect();
-//				PreparedStatement statement = connection.prepareStatement("SELECT * FROM customers");
-//				ResultSet resultSet = statement.executeQuery()) {
-//
-//			while (resultSet.next()) {
-//				String firstName = resultSet.getString("firstName");
-//				String lastName = resultSet.getString("lastName");
-//				int phone = resultSet.getInt("phone");
-//
-//				Customer customer = new Customer(firstName, lastName, phone);
-//				customers.add(customer);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//
-//		return customers;
-//	}
-
