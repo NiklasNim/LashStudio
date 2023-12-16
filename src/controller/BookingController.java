@@ -9,14 +9,11 @@ public class BookingController {
 	private ServiceController serviceController;
 	private CustomerController customerController;
 	private BookingDBIF bookingDB;
-	private CustomerDBIF customerDB;
-	private Booking booking;
 	private ScheduleDB scheduleDB;
 
 	public BookingController() {
 		this.bookingDB = new BookingDB();
 		this.scheduleDB = new ScheduleDB();
-		this.customerDB = new CustomerDB();
 		this.serviceController = new ServiceController();
 		this.customerController = new CustomerController();	
 	}
@@ -26,7 +23,7 @@ public class BookingController {
 			throw new RuntimeException("Tidsplanen er ikke tilgængelig for booking.");
 		}
 		
-		Customer customer = customerDB.findCustomerByPhone(phone);
+		Customer customer = customerController.findCustomerByPhone(phone);
 		if (customer == null) {
             throw new RuntimeException("Kunde ikke fundet.");
         }
@@ -53,20 +50,9 @@ public class BookingController {
 
 	    booking.addBookingLine(newBookingLine);
 	}
-	
-	
+		
 	private boolean canBook(int scheduleId) {
         List<Schedule> scheduleList = scheduleDB.getAllAvailableSchedules();
         return scheduleList.stream().anyMatch(schedule -> schedule.getScheduleId() == scheduleId);
-	}
-	
-				
-	public void addCustomerByPhone(int phone) {
-	    Customer c = customerController.findCustomerByPhone(phone);
-	    if (c != null) {
-	        booking.setCustomerId(c.getCustomerId());
-	    } else {
-	        throw new IllegalArgumentException("Kunde med telefonnummer " + phone + " blev ikke fundet.");
-	    }
 	}
 }
