@@ -8,14 +8,14 @@ import model.*;
 public class BookingController {
 	private ServiceController serviceController;
 	private CustomerController customerController;
-	private BookingDBIF bookingDB;
-	private ScheduleDB scheduleDB;
+	private ScheduleController scheduleController;
+	private BookingDB bookingDB;
 
 	public BookingController() {
 		this.bookingDB = new BookingDB();
-		this.scheduleDB = new ScheduleDB();
 		this.serviceController = new ServiceController();
-		this.customerController = new CustomerController();	
+		this.customerController = new CustomerController();
+		this.scheduleController = new ScheduleController();
 	}
 
 	public void makeBooking(LocalDate bookingDate, int phone, int scheduleId, List<Integer> serviceIds) {
@@ -52,7 +52,7 @@ public class BookingController {
 	}
 		
 	private boolean canBook(int scheduleId) {
-        List<Schedule> scheduleList = scheduleDB.getAllAvailableSchedules();
+        List<Schedule> scheduleList = scheduleController.getAllAvailableSchedules();
         return scheduleList.stream().anyMatch(schedule -> schedule.getScheduleId() == scheduleId);
 	}
 }

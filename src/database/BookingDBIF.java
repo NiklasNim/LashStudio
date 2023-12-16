@@ -1,5 +1,4 @@
 package database;
-
 import java.util.List;
 
 import model.Booking;
