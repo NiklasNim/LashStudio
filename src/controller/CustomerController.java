@@ -15,8 +15,8 @@ public class CustomerController {
         this.customers = customerDB.findAllCustomers();
 	}
 
-	public void createCustomer(String firstName, String lastName, int phone) {
-        Customer newCustomer = new Customer(firstName, lastName, phone);
+	public void createCustomer(int customerId, String firstName, String lastName, int phone) {
+        Customer newCustomer = new Customer(customerId, firstName, lastName, phone);
         customers.add(newCustomer);
 
         customerDB.createCustomer(newCustomer);

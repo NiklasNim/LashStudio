@@ -10,5 +10,4 @@ public interface CustomerDBIF {
 	void createCustomer(Customer newCustomer);
 
 	Customer findCustomerByPhone(int phone);
-
 }

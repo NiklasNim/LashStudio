@@ -55,4 +55,5 @@ public class Schedule {
 	public void setBooked(boolean isBooked) {
 		this.isBooked = isBooked;
 	}
+
 }

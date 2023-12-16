@@ -8,6 +8,6 @@ public interface BookingDBIF {
 
 	List<Booking> getBookings();
 
-	void addBooking(Booking booking);
+	int addBooking(Booking booking);
 
 }

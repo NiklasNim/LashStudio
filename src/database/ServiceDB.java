@@ -2,7 +2,6 @@ package database;
 
 import java.math.BigDecimal;
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import connectDatabase.DatabaseConnection;
@@ -20,31 +19,31 @@ public class ServiceDB implements ServiceDBIF {
 		return instance;
 	}
 
-	public Service findServiceById(int serviceId) {
-		String sqlQuery = "SELECT * from service where serviceId = " + serviceId;
-		try {
-			DatabaseConnection dbConn = DatabaseConnection.getInstance();
-			Statement sqlStat = dbConn.getConnection().createStatement();
-			ResultSet rs = sqlStat.executeQuery(sqlQuery);
-			System.out.println("Finding service with serviceId " + serviceId);
-			while (rs.next()) {
-				String location = rs.getString("location");
-				int serviceID = rs.getInt("serviceId");
-				Timestamp timePeriod = rs.getTimestamp("timePeriod");
-				BigDecimal price = rs.getBigDecimal("price");
-				String description = rs.getString("description");
-				String serviceType = rs.getString("serviceType");
-				System.out.println("Found service " + location + "\t" + serviceID + "\t" + timePeriod + "\t" + price
-						+ "\t" + description + "\t" + serviceType);
+    public Service findServiceById(int serviceId) {
+        String sqlQuery = "SELECT * FROM service WHERE serviceId = ?";
+        Service service = null;
 
-				return new Service(serviceId, timePeriod, price, description, serviceType);
-			}
-		} catch (SQLException sExc) {
-			sExc.printStackTrace();
-		}
-		return null;
+        try {
+            DatabaseConnection dbConn = DatabaseConnection.getInstance();
+            PreparedStatement preparedStatement = dbConn.getConnection().prepareStatement(sqlQuery);
+            
+            preparedStatement.setInt(1, serviceId);
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            if (rs.next()) {
+                int serviceID = rs.getInt("serviceId");
+                BigDecimal price = rs.getBigDecimal("price");
+                String description = rs.getString("description");
+                String serviceType = rs.getString("serviceType");
+                int locationId = rs.getInt("locationId_FK");
 
-	}
+                service = new Service(serviceID, price, description, serviceType, locationId);
+            }
+        } catch (SQLException sExc) {
+            sExc.printStackTrace();
+        }
+        return service;
+    }
 
 	public LocalDateTime findAvailableServiceDates(int serviceId) {
 		String sqlQuery = "SELECT timePeriod FROM service WHERE serviceId = ?";
@@ -71,26 +70,54 @@ public class ServiceDB implements ServiceDBIF {
 
 	public List<Schedule> getAllAvailableDates() {
 		List<Schedule> schedules = new ArrayList<>();
-	    String sql = "SELECT schedule.* FROM Schedule LEFT JOIN BookingLine ON BookingLine.scheduleId_FK = Schedule.ScheduleId WHERE BookingLine.bookingLineId IS NULL";
-	        
-	    try {DatabaseConnection dbConn = DatabaseConnection.getInstance();
-	         Statement sqlStat = dbConn.getConnection().createStatement();
-	         ResultSet rs = sqlStat.executeQuery(sql);
+		String sqlQuery = "SELECT * FROM Schedule LEFT JOIN BookingLine ON BookingLine.scheduleId_FK = Schedule.ScheduleId WHERE BookingLine.bookingLineId IS NULL";
 
-	         while (rs.next()) {
-	             int scheduleId = rs.getInt("scheduleId");
-	             Timestamp startTime = rs.getTimestamp("startTime");
-	             Timestamp endTime = rs.getTimestamp("endTime");
-	             int employeeId_FK = rs.getInt("employeeId_FK");
-	                
-	             System.out.println("Found schedule = " + scheduleId + "\tStartTime=" + startTime + "\tEndTime=" + endTime + "\tEmployeeID_FK=" + employeeId_FK);
-	             schedules.add(new Schedule(scheduleId, startTime, endTime, employeeId_FK));
-	        }
-	     } catch (SQLException e) {
-	         e.printStackTrace();
-	        }
-	        return schedules;
-	    }
+		try {
+			DatabaseConnection dbConn = DatabaseConnection.getInstance();
+			PreparedStatement pstmt = dbConn.getConnection().prepareStatement(sqlQuery);
+			ResultSet rs = pstmt.executeQuery();
+
+			System.out.println("Fetching all available schedules");
+			while (rs.next()) {
+
+				int scheduleId = rs.getInt("scheduleId");
+				Timestamp startTime = rs.getTimestamp("startTime");
+				Timestamp endTime = rs.getTimestamp("endTime");
+				int employeeId_FK = rs.getInt("employeeId_FK");
+
+				Schedule schedule = new Schedule(scheduleId, startTime, endTime, employeeId_FK);
+				schedules.add(schedule);
+
+			}
+		} catch (SQLException sExc) {
+			sExc.printStackTrace();
+		}
+
+		return schedules;
+	}
+	
+	public List<Service> getAllServices() {
+        List<Service> services = new ArrayList<>();
+        String sql = "SELECT * FROM service";
+        try {
+            DatabaseConnection dbConn = DatabaseConnection.getInstance();
+            Statement statement = dbConn.getConnection().createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                int serviceId = rs.getInt("serviceId");
+                BigDecimal price = rs.getBigDecimal("price");
+                String description = rs.getString("description");
+                String serviceType = rs.getString("serviceType");
+                int locationId = rs.getInt("locationId_FK");
+
+                services.add(new Service(serviceId, price, description, serviceType, locationId));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return services;
+    }
 }
 
 /*

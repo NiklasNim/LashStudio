@@ -1,29 +1,30 @@
 package model;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public class BookingLine {
+	private int bookingLineId;
 	private Service service;
-	private int quantity; 
 	private BigDecimal unitPrice;
-	// private money unitMoney; 
+	private int serviceId;
+	private int scheduleId;
+
 	
-	public BookingLine(Service service, int quantity, BigDecimal unitPrice) {
+	public BookingLine(Service service, BigDecimal unitPrice) {
 		
 		this.service = service;
-		this.quantity = quantity;
 		this.unitPrice = unitPrice;
-
 	}
+	
+	
+	 public int getBookingLineId() {
+	    return bookingLineId;
+	 }
+	 
+	 public void setBookingLineId(int bookingLineId) {
+	    this.bookingLineId = bookingLineId;
+	 }
 
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
 
 	public BigDecimal getUnitPrice() {
 		return unitPrice;
@@ -36,4 +37,20 @@ public class BookingLine {
 	public Service getService() {
 		return service;
 	}
+	
+	public int getScheduleId() {
+	    return scheduleId;
+	}
+	
+	public void setScheduleId(int scheduleId) {
+        this.scheduleId = scheduleId;
+    }
+	  
+	public int getServiceId() {
+		return serviceId;
+	}
+	
+	public void setServiceId(int serviceId) {
+		this.serviceId = serviceId;
+    }
 }
