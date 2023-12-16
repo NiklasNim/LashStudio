@@ -13,10 +13,8 @@ public class BookingController {
 	private CustomerController customerController;
 	private BookingDBIF bookingDB;
 	private CustomerDBIF customerDB;
-	private BookingLine bookingLine;
 	private Booking booking;
 	private ServiceDBIF serviceDB;
-	private List<Schedule> scheduleList;
 	private ScheduleDB scheduleDB;
 
 
@@ -26,18 +24,8 @@ public class BookingController {
 		this.customerDB = new CustomerDB();
 		this.serviceController = new ServiceController();
 		this.customerController = new CustomerController();
-		this.serviceDB = new ServiceDB();
-		//this.bookingLine = new BookingLine();
-		this.scheduleList = serviceDB.getAllAvailableDates();
-		
+		this.serviceDB = new ServiceDB();		
 	}
-	
-	
-	public Booking createBooking(LocalDate bookingDate, Customer customer) {
-		this.booking = new Booking(bookingDate, customer.getCustomerId());
-		return booking;
-	}
-	
 	
 	public void addBookingLine(int scheduleId , Booking booking, Service service, BigDecimal unitPrice) {
 	    // Opret en ny BookingLine med service og unitPrice
@@ -94,7 +82,7 @@ public class BookingController {
             }
 
             // Opret en ny Booking
-            Booking newBooking = createBooking(bookingDate, customer); 
+            Booking newBooking = new Booking(bookingDate, customer.getCustomerId()); 
             // Tilføj bookinglinjer til bookingen baseret på serviceIds
             for (Integer serviceId : serviceIds) {
                 Service service = serviceController.findServiceById(serviceId);
@@ -111,6 +99,5 @@ public class BookingController {
         } else {
             throw new RuntimeException("Tidsplanen er ikke tilgængelig for booking.");
         }
-    }        
-        
+    }  
 }
