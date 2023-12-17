@@ -5,13 +5,7 @@ import controller.*;
 import model.Customer;
 import model.Schedule;
 import model.Service;
-import connectDatabase.DatabaseConnection;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -128,7 +122,6 @@ public class CreateBookingUI extends JFrame {
     }
     
     private void populateDateComboBoxFromDatabase() {
-    	ScheduleController scheduleController = new ScheduleController();
     	List<Timestamp> timestamps = new ArrayList<>();
     	List<Schedule> allSchedules = scheduleController.getAllAvailableSchedules();
     	for (Schedule schedule : allSchedules) {
