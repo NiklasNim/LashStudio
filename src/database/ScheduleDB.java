@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class ScheduleDB implements ScheduleDBIF {
 	        PreparedStatement pstmt = dbConn.getConnection().prepareStatement(sql);
 	        ResultSet rs = pstmt.executeQuery();
 
-	        System.out.println("Indhenter alle tilgængelige tidsplaner");
+	        System.out.println(LocalDateTime.now()  + " - Indhenter alle tilgængelige tidsplaner");
 	        while (rs.next()) {
 	            int scheduleId = rs.getInt("scheduleId");
 	            Timestamp startTime = rs.getTimestamp("startTime");

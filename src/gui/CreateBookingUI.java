@@ -2,7 +2,6 @@ package gui;
 
 import javax.swing.*;
 import controller.*;
-import model.Customer;
 import model.Schedule;
 import model.Service;
 import java.awt.*;
@@ -14,14 +13,14 @@ public class CreateBookingUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JComboBox<Service> serviceComboBox;
     private ServiceController serviceController;
-    private CustomerController customerController;
     private ScheduleController scheduleController;
+    private BookingController bookingController;
     private JTextField nameTextField;
     private JComboBox<Schedule> dateComboBox;
     
     public CreateBookingUI() {
         this.serviceController = new ServiceController();
-        this.customerController = new CustomerController();
+        this.bookingController = new BookingController();
         this.scheduleController = new ScheduleController();
         initialize();
     }
@@ -82,23 +81,17 @@ public class CreateBookingUI extends JFrame {
             LocalDate bookingDate = selectedSchedule.getStartTime().toLocalDateTime().toLocalDate();            
 
             int scheduleId = selectedSchedule.getScheduleId();
-            Customer customer = customerController.findCustomerByPhone(phone);
-            if (customer == null) {
-                JOptionPane.showMessageDialog(this, "Kunde med telefonnummeret " + phone + " ikke fundet.", "Bookingfejl", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
 
             List<Integer> serviceIds = new ArrayList<>();
             serviceIds.add(selectedService.getServiceId());
-
-            BookingController bookingController = new BookingController();
+            
             bookingController.makeBooking(bookingDate, phone, scheduleId, serviceIds);
 
-            String bookingSummary = "Service: " + selectedService +
-                                    ", Kunde: " + customer.getFirstName() + " " + customer.getLastName() +
-                                    ", Dato/Tid: " + selectedSchedule;
+            String bookingSummary = "Service: " + selectedService + ", Dato/Tid: " + selectedSchedule;
             
+            System.out.println("Succesfuld booking");
             JOptionPane.showMessageDialog(this, "Booking gemt med succes. " + bookingSummary);
+    
             clearForm();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Fejl under oprettelse af booking: " + ex.getMessage(), "Booking Fejl", JOptionPane.ERROR_MESSAGE);
