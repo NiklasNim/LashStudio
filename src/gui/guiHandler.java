@@ -7,28 +7,24 @@ public class guiHandler  {
 	
 	
 	public static void createMainWindow() {
-		disableCurrent();
-		MainWindow mainWindow = new MainWindow();
-        windows.add(mainWindow);
-        mainWindow.setVisible(true);
-        setSize(mainWindow);
+		createWindow(new MainWindow());
     }
 	
 	public static void createBookingOptionsUI() {
-		disableCurrent();
-		BookingOptionsUI bookingOptions = new BookingOptionsUI();
-        windows.add(bookingOptions);
-        bookingOptions.setVisible(true);
-        setSize(bookingOptions);
+		createWindow(new BookingOptionsUI());
     }
 	
 	public static void createBookingUI() {
-		disableCurrent();
-		CreateBookingUI createBookingUI = new CreateBookingUI();
-        windows.add(createBookingUI);
-        createBookingUI.setVisible(true);
-        setSize(createBookingUI);
+		createWindow(new CreateBookingUI());
     }
+	
+	public static void createWindow(JFrame window) {
+		disableCurrent();
+		windows.add(window);
+		window.setVisible(true);
+		setSize(window);
+	}
+		
 	
 	public static void goBack() {
 		JFrame window = windows.get(windows.size() - 1);
