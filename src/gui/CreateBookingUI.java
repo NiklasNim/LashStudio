@@ -18,8 +18,8 @@ import java.sql.Timestamp;
 public class CreateBookingUI extends JFrame {
     private JComboBox<String> serviceTypeComboBox;
     private JTextField nameTextField;
-    private JComboBox<String> timeComboBox;
     private JComboBox<String> dateComboBox;
+    private JTextField txtPrisHer;
 
     public CreateBookingUI() {
         initialize();
@@ -44,14 +44,8 @@ public class CreateBookingUI extends JFrame {
         getContentPane().add(nameTextField);
         nameTextField.setColumns(10);
 
-        JLabel lblNewLabel3 = new JLabel("Vælg tidspunkt:");
+        JLabel lblNewLabel3 = new JLabel("Vælg Dag og Tidspunkt:");
         getContentPane().add(lblNewLabel3);
-
-        timeComboBox = new JComboBox<>(new String[]{"9:00", "11:00", "2:00", "4:00"});
-        getContentPane().add(timeComboBox);
-
-        JLabel lblNewLabel4 = new JLabel("Vælg Dato:");
-        getContentPane().add(lblNewLabel4);
 
         dateComboBox = new JComboBox<>(/*new String[]{"2023-01-01", "2023-01-02", "2023-01-03"}*/);
         getContentPane().add(dateComboBox);
@@ -62,6 +56,13 @@ public class CreateBookingUI extends JFrame {
                 goBackClicked();
             }
         });
+        
+        JLabel lblNewLabel = new JLabel("Pris:");
+        getContentPane().add(lblNewLabel);
+        
+        txtPrisHer = new JTextField();
+        getContentPane().add(txtPrisHer);
+        txtPrisHer.setColumns(10);
         getContentPane().add(btnTilbage);
 
         JButton btnSubmit = new JButton("Udfør Booking");
@@ -78,11 +79,11 @@ public class CreateBookingUI extends JFrame {
     private void submitBooking() {
         String serviceType = (String) serviceTypeComboBox.getSelectedItem();
         String name = nameTextField.getText();
-        String time = (String) timeComboBox.getSelectedItem();
+        //String time = (String) timeComboBox.getSelectedItem();
         String date = (String) dateComboBox.getSelectedItem();
         System.out.println("Service Type: " + serviceType);
         System.out.println("Name: " + name);
-        System.out.println("Time: " + time);
+        //System.out.println("Time: " + time);
         System.out.println("Date: " + date);
         JOptionPane.showMessageDialog(this, "Booking submitted successfully!");
 
@@ -92,7 +93,7 @@ public class CreateBookingUI extends JFrame {
     private void clearForm() {
         serviceTypeComboBox.setSelectedIndex(0);
         nameTextField.setText("");
-        timeComboBox.setSelectedIndex(0);
+        //timeComboBox.setSelectedIndex(0);
         dateComboBox.setSelectedIndex(0);
     }
 
