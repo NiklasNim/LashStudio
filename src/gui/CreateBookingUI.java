@@ -1,9 +1,19 @@
 package gui;
 
 import javax.swing.*;
+
+import connectDatabase.DatabaseConnection;
+import model.Schedule;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.Timestamp;
 
 public class CreateBookingUI extends JFrame {
     private JComboBox<String> serviceTypeComboBox;
@@ -43,7 +53,7 @@ public class CreateBookingUI extends JFrame {
         JLabel lblNewLabel4 = new JLabel("Vælg Dato:");
         getContentPane().add(lblNewLabel4);
 
-        dateComboBox = new JComboBox<>(new String[]{"2023-01-01", "2023-01-02", "2023-01-03"});
+        dateComboBox = new JComboBox<>(/*new String[]{"2023-01-01", "2023-01-02", "2023-01-03"}*/);
         getContentPane().add(dateComboBox);
         
         JButton btnTilbage = new JButton("Tilbage");
@@ -61,6 +71,8 @@ public class CreateBookingUI extends JFrame {
             }
         });
         getContentPane().add(btnSubmit);
+        populatDateComboBoxFromDatabase();
+        
     }
 
     private void submitBooking() {
@@ -100,4 +112,38 @@ public class CreateBookingUI extends JFrame {
     	CreateBookingUI createBooking = new CreateBookingUI(); // skal refereres til OrderOptions isf
         createBooking.setVisible(true);
     }
+    
+    private void populatDateComboBoxFromDatabase() {
+        List<Timestamp> schedules = new ArrayList<>();
+        String sql = "SELECT schedule.* FROM Schedule " +
+                     "LEFT JOIN BookingLine ON BookingLine.scheduleId_FK = Schedule.scheduleId " +
+                     "WHERE BookingLine.bookingLineId IS NULL " +
+                     "AND startTime <= DATEADD(day, 7, GetDate()) " +
+                     "AND startTime > GetDate()";
+
+        try {
+            DatabaseConnection dbConn = DatabaseConnection.getInstance();
+            PreparedStatement pstmt = dbConn.getConnection().prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+
+            while(rs.next()) {
+                Timestamp startTime = rs.getTimestamp("startTime");
+                schedules.add(startTime);
+            }
+
+            updateDateComboBox(schedules);
+
+        } catch (SQLException e) {
+            e.printStackTrace(); 
+        }
+    }
+
+    private void updateDateComboBox(List<Timestamp> timestamps) {
+        dateComboBox.removeAllItems();
+        for (Timestamp timestamp : timestamps) {
+            dateComboBox.addItem(timestamp.toString()); 
+        }
+    }
+
+    
 }
