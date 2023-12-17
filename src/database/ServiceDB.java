@@ -3,7 +3,6 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.*;
-
 import connectDatabase.DatabaseConnection;
 import model.Service;
 
@@ -79,5 +78,4 @@ public class ServiceDB implements ServiceDBIF {
 	    }
 	    return allServices;
 	}
-
 }
