@@ -1,31 +1,35 @@
 package gui;
 
 import javax.swing.*;
-
-import connectDatabase.DatabaseConnection;
-import controller.ServiceController;
+import controller.*;
+import model.Customer;
 import model.Schedule;
 import model.Service;
-
+import connectDatabase.DatabaseConnection;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Timestamp;
 
 public class CreateBookingUI extends JFrame {
-	private JComboBox<Service> serviceComboBox;
+    private JComboBox<Service> serviceComboBox;
     private ServiceController serviceController;
+    private CustomerController customerController;
+    private ScheduleController scheduleController;
     private JTextField nameTextField;
     private JComboBox<String> dateComboBox;
-    private JTextField txtPrisHer;
+    private JTextArea txtBookingSummary;
 
     public CreateBookingUI() {
-    	this.serviceController = new ServiceController();
+        this.serviceController = new ServiceController();
+        this.customerController = new CustomerController();
+        this.scheduleController = new ScheduleController();
         initialize();
     }
 
@@ -33,75 +37,98 @@ public class CreateBookingUI extends JFrame {
         setTitle("Booking Page");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
-        getContentPane().setLayout(new GridLayout(5, 2, 10, 10));
+        getContentPane().setLayout(new GridLayout(6, 2, 10, 10));
 
-        JLabel lblNewLabel1 = new JLabel("Vælg Service Type:");
-        getContentPane().add(lblNewLabel1);
-
+        getContentPane().add(new JLabel("Vælg Service Type:"));
         serviceComboBox = new JComboBox<>();
         getContentPane().add(serviceComboBox);
         updateServiceComboBox();
 
-        JLabel lblNewLabel2 = new JLabel("Indtast navn:");
-        getContentPane().add(lblNewLabel2);
-
+        getContentPane().add(new JLabel("Indtast telefonnummer:"));
         nameTextField = new JTextField();
         getContentPane().add(nameTextField);
         nameTextField.setColumns(10);
 
-        JLabel lblNewLabel3 = new JLabel("Vælg Dag og Tidspunkt:");
-        getContentPane().add(lblNewLabel3);
-
-        dateComboBox = new JComboBox<>(/*new String[]{"2023-01-01", "2023-01-02", "2023-01-03"}*/);
+        getContentPane().add(new JLabel("Vælg Dag og Tidspunkt:"));
+        dateComboBox = new JComboBox<>();
         getContentPane().add(dateComboBox);
-        
-        JButton btnTilbage = new JButton("Tilbage");
-        btnTilbage.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                goBackClicked();
-            }
-        });
-        
-        JLabel lblNewLabel = new JLabel("Pris:");
-        getContentPane().add(lblNewLabel);
-        
-        txtPrisHer = new JTextField();
-        getContentPane().add(txtPrisHer);
-        txtPrisHer.setColumns(10);
-        getContentPane().add(btnTilbage);
+        populatDateComboBoxFromDatabase();
+
+        getContentPane().add(new JLabel("Booking Sammendrag:"));
+        txtBookingSummary = new JTextArea(5, 20); // Brug JTextArea for at tillade flere linjer
+        txtBookingSummary.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(txtBookingSummary); // Gør JTextArea scrollable
+        scrollPane.setPreferredSize(new Dimension(400, 100)); // Justér størrelsen efter behov
+        getContentPane().add(scrollPane);
+
+        JButton btnBack = new JButton("Tilbage");
+        btnBack.addActionListener(e -> goBackClicked());
+        getContentPane().add(btnBack);
 
         JButton btnSubmit = new JButton("Udfør Booking");
-        btnSubmit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                submitBooking();
-            }
-        });
+        btnSubmit.addActionListener(e -> submitBooking());
         getContentPane().add(btnSubmit);
-        populatDateComboBoxFromDatabase();
-        
     }
+
 
     private void submitBooking() {
-        String serviceType = (String) serviceComboBox.getSelectedItem();
-        String name = nameTextField.getText();
-        //String time = (String) timeComboBox.getSelectedItem();
-        String date = (String) dateComboBox.getSelectedItem();
-        System.out.println("Service Type: " + serviceType);
-        System.out.println("Name: " + name);
-        //System.out.println("Time: " + time);
-        System.out.println("Date: " + date);
-        JOptionPane.showMessageDialog(this, "Booking submitted successfully!");
+        try {
+            Service selectedService = (Service) serviceComboBox.getSelectedItem();
+            if (selectedService == null) {
+                JOptionPane.showMessageDialog(this, "Vælg venligst en service.");
+                return;
+            }
 
-        clearForm();
+            int phone;
+            try {
+                phone = Integer.parseInt(nameTextField.getText().trim());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Indtast venligst et gyldigt telefonnummer.", "Inputfejl", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Timestamp selectedTimestamp = Timestamp.valueOf(dateComboBox.getSelectedItem().toString());
+            LocalDate bookingDate = selectedTimestamp.toLocalDateTime().toLocalDate();
+
+            Schedule selectedSchedule = null;
+            for (Schedule schedule : scheduleController.getAllAvailableSchedules()) {
+                if (schedule.getStartTime().equals(selectedTimestamp)) {
+                    selectedSchedule = schedule;
+                    break;
+                }
+            }
+
+            if (selectedSchedule == null) {
+                JOptionPane.showMessageDialog(this, "Ingen tilgængelig tidsplan fundet for det valgte tidspunkt.");
+                return;
+            }
+
+            int scheduleId = selectedSchedule.getScheduleId();
+            Customer customer = customerController.findCustomerByPhone(phone);
+            if (customer == null) {
+                JOptionPane.showMessageDialog(this, "Kunde med telefonnummeret " + phone + " ikke fundet.", "Bookingfejl", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            List<Integer> serviceIds = new ArrayList<>();
+            serviceIds.add(selectedService.getServiceId());
+
+            BookingController bookingController = new BookingController();
+            bookingController.makeBooking(bookingDate, phone, scheduleId, serviceIds);
+
+            String bookingSummary = "Service: " + selectedService +
+                                    ", Kunde: " + customer.getFirstName() + " " + customer.getLastName() +
+                                    ", Dato/Tid: " + selectedTimestamp;
+            txtBookingSummary.setText(bookingSummary);
+
+            JOptionPane.showMessageDialog(this, "Booking gemt med succes.");
+            clearForm();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Fejl under oprettelse af booking: " + ex.getMessage(), "Booking Fejl", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
-    private void clearForm() {
-        serviceComboBox.setSelectedIndex(0);
-        nameTextField.setText("");
-        //timeComboBox.setSelectedIndex(0);
-        dateComboBox.setSelectedIndex(0);
-    }
-    
+
     private void updateServiceComboBox() {
         List<Service> services = serviceController.getAllServices();
         for (Service service : services) {
@@ -109,54 +136,58 @@ public class CreateBookingUI extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                	CreateBookingUI frame = new CreateBookingUI();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+  private void populatDateComboBoxFromDatabase() {
+  List<Timestamp> schedules = new ArrayList<>();
+  String sql = "SELECT schedule.* FROM Schedule " +
+               "LEFT JOIN BookingLine ON BookingLine.scheduleId_FK = Schedule.scheduleId " +
+               "WHERE BookingLine.bookingLineId IS NULL " +
+               "AND startTime <= DATEADD(day, 7, GetDate()) " +
+               "AND startTime > GetDate()";
+
+  try {
+      DatabaseConnection dbConn = DatabaseConnection.getInstance();
+      PreparedStatement pstmt = dbConn.getConnection().prepareStatement(sql);
+      ResultSet rs = pstmt.executeQuery();
+
+      while(rs.next()) {
+          Timestamp startTime = rs.getTimestamp("startTime");
+          schedules.add(startTime);
+      }
+
+      updateDateComboBox(schedules);
+
+  } catch (SQLException e) {
+      e.printStackTrace(); 
+  }
+}
+  
+    private void clearForm() {
+        serviceComboBox.setSelectedIndex(0);
+        nameTextField.setText("");
+        dateComboBox.setSelectedIndex(0);
+        txtBookingSummary.setText("");
     }
+
     private void goBackClicked() {
-    	CreateBookingUI createBooking = new CreateBookingUI(); // skal refereres til OrderOptions isf
+        CreateBookingUI createBooking = new CreateBookingUI();
         createBooking.setVisible(true);
     }
     
-    private void populatDateComboBoxFromDatabase() {
-        List<Timestamp> schedules = new ArrayList<>();
-        String sql = "SELECT schedule.* FROM Schedule " +
-                     "LEFT JOIN BookingLine ON BookingLine.scheduleId_FK = Schedule.scheduleId " +
-                     "WHERE BookingLine.bookingLineId IS NULL " +
-                     "AND startTime <= DATEADD(day, 7, GetDate()) " +
-                     "AND startTime > GetDate()";
-
-        try {
-            DatabaseConnection dbConn = DatabaseConnection.getInstance();
-            PreparedStatement pstmt = dbConn.getConnection().prepareStatement(sql);
-            ResultSet rs = pstmt.executeQuery();
-
-            while(rs.next()) {
-                Timestamp startTime = rs.getTimestamp("startTime");
-                schedules.add(startTime);
-            }
-
-            updateDateComboBox(schedules);
-
-        } catch (SQLException e) {
-            e.printStackTrace(); 
-        }
-    }
-
     private void updateDateComboBox(List<Timestamp> timestamps) {
-        dateComboBox.removeAllItems();
-        for (Timestamp timestamp : timestamps) {
-            dateComboBox.addItem(timestamp.toString()); 
-        }
-    }
+	    dateComboBox.removeAllItems();
+	    for (Timestamp timestamp : timestamps) {
+	        dateComboBox.addItem(timestamp.toString());
+	    }
+	}
 
-    
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                CreateBookingUI frame = new CreateBookingUI();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 }
