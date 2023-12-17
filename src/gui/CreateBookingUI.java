@@ -27,7 +27,6 @@ public class CreateBookingUI extends JFrame {
     private void initialize() {
         setTitle("Booking Page");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
         getContentPane().setLayout(new GridLayout(6, 2, 10, 10));
 
         getContentPane().add(new JLabel("Vælg Service Type:"));

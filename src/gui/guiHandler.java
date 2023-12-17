@@ -5,11 +5,13 @@ import javax.swing.JFrame;
 public class guiHandler  {
 	private static ArrayList<JFrame> windows = new ArrayList<JFrame>();
 	
+	
 	public static void createMainWindow() {
 		disableCurrent();
 		MainWindow mainWindow = new MainWindow();
         windows.add(mainWindow);
         mainWindow.setVisible(true);
+        setSize(mainWindow);
     }
 	
 	public static void createBookingOptionsUI() {
@@ -17,6 +19,7 @@ public class guiHandler  {
 		BookingOptionsUI bookingOptions = new BookingOptionsUI();
         windows.add(bookingOptions);
         bookingOptions.setVisible(true);
+        setSize(bookingOptions);
     }
 	
 	public static void createBookingUI() {
@@ -24,6 +27,7 @@ public class guiHandler  {
 		CreateBookingUI createBookingUI = new CreateBookingUI();
         windows.add(createBookingUI);
         createBookingUI.setVisible(true);
+        setSize(createBookingUI);
     }
 	
 	public static void goBack() {
@@ -41,5 +45,10 @@ public class guiHandler  {
 		
 		JFrame window = windows.get(windows.size() - 1);
 	    window.setVisible(false);
+	}
+	
+	private static void setSize(JFrame frame) {
+		 frame.setSize(800, 600);
+	     frame.setLocationRelativeTo(null);
 	}
 }
