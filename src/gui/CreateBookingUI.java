@@ -6,18 +6,18 @@ import model.Customer;
 import model.Schedule;
 import model.Service;
 import java.awt.*;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CreateBookingUI extends JFrame {
-    private JComboBox<Service> serviceComboBox;
+	private static final long serialVersionUID = 1L;
+	private JComboBox<Service> serviceComboBox;
     private ServiceController serviceController;
     private CustomerController customerController;
     private ScheduleController scheduleController;
     private JTextField nameTextField;
-    private JComboBox<String> dateComboBox;
+    private JComboBox<Schedule> dateComboBox;
     
     public CreateBookingUI() {
         this.serviceController = new ServiceController();
@@ -73,21 +73,13 @@ public class CreateBookingUI extends JFrame {
                 return;
             }
 
-            Timestamp selectedTimestamp = Timestamp.valueOf(dateComboBox.getSelectedItem().toString());
-            LocalDate bookingDate = selectedTimestamp.toLocalDateTime().toLocalDate();
-
-            Schedule selectedSchedule = null;
-            for (Schedule schedule : scheduleController.getAllAvailableSchedules()) {
-                if (schedule.getStartTime().equals(selectedTimestamp)) {
-                    selectedSchedule = schedule;
-                    break;
-                }
-            }
-
-            if (selectedSchedule == null) {
+            if (dateComboBox.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(this, "Ingen tilgængelig tidsplan fundet for det valgte tidspunkt.");
                 return;
             }
+       
+            Schedule selectedSchedule = (Schedule)dateComboBox.getSelectedItem();
+            LocalDate bookingDate = selectedSchedule.getStartTime().toLocalDateTime().toLocalDate();            
 
             int scheduleId = selectedSchedule.getScheduleId();
             Customer customer = customerController.findCustomerByPhone(phone);
@@ -104,7 +96,7 @@ public class CreateBookingUI extends JFrame {
 
             String bookingSummary = "Service: " + selectedService +
                                     ", Kunde: " + customer.getFirstName() + " " + customer.getLastName() +
-                                    ", Dato/Tid: " + selectedTimestamp;
+                                    ", Dato/Tid: " + selectedSchedule;
             
             JOptionPane.showMessageDialog(this, "Booking gemt med succes. " + bookingSummary);
             clearForm();
@@ -122,12 +114,8 @@ public class CreateBookingUI extends JFrame {
     }
     
     private void populateDateComboBoxFromDatabase() {
-    	List<Timestamp> timestamps = new ArrayList<>();
     	List<Schedule> allSchedules = scheduleController.getAllAvailableSchedules();
-    	for (Schedule schedule : allSchedules) {
-    		timestamps.add(schedule.getStartTime());
-    	}
-    	updateDateComboBox(timestamps);
+    	updateDateComboBox(allSchedules);
     }
   
     private void clearForm() {
@@ -141,10 +129,10 @@ public class CreateBookingUI extends JFrame {
         createBooking.setVisible(true);
     }
     
-    private void updateDateComboBox(List<Timestamp> timestamps) {
+    private void updateDateComboBox(List<Schedule> schedules) {
 	    dateComboBox.removeAllItems();
-	    for (Timestamp timestamp : timestamps) {
-	        dateComboBox.addItem(timestamp.toString());
+	    for (Schedule schedule : schedules) {
+	        dateComboBox.addItem(schedule);
 	    }
 	}
 

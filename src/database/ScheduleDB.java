@@ -24,7 +24,7 @@ public class ScheduleDB implements ScheduleDBIF {
 	        PreparedStatement pstmt = dbConn.getConnection().prepareStatement(sql);
 	        ResultSet rs = pstmt.executeQuery();
 
-	        System.out.println("Indhenter alle tilgængelige tidsplaner for de næste 7 dage");
+	        System.out.println("Indhenter alle tilgængelige tidsplaner");
 	        while (rs.next()) {
 	            int scheduleId = rs.getInt("scheduleId");
 	            Timestamp startTime = rs.getTimestamp("startTime");
