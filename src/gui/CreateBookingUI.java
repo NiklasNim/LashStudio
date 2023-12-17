@@ -111,11 +111,6 @@ public class CreateBookingUI extends JFrame {
         nameTextField.setText("");
         dateComboBox.setSelectedIndex(0);
     }
-
-    private void goBackClicked() {
-        CreateBookingUI createBooking = new CreateBookingUI();
-        createBooking.setVisible(true);
-    }
     
     private void updateDateComboBox(List<Schedule> schedules) {
 	    dateComboBox.removeAllItems();
