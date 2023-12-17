@@ -51,7 +51,7 @@ public class CreateBookingUI extends JFrame {
         getContentPane().add(new JLabel("Vælg Dag og Tidspunkt:"));
         dateComboBox = new JComboBox<>();
         getContentPane().add(dateComboBox);
-        populatDateComboBoxFromDatabase();
+        populateDateComboBoxFromDatabase();
 
         JButton btnBack = new JButton("Tilbage");
         btnBack.addActionListener(e -> goBackClicked());
@@ -126,31 +126,16 @@ public class CreateBookingUI extends JFrame {
             serviceComboBox.addItem(service);
         }
     }
-
-  private void populatDateComboBoxFromDatabase() {
-  List<Timestamp> schedules = new ArrayList<>();
-  String sql = "SELECT schedule.* FROM Schedule " +
-               "LEFT JOIN BookingLine ON BookingLine.scheduleId_FK = Schedule.scheduleId " +
-               "WHERE BookingLine.bookingLineId IS NULL " +
-               "AND startTime <= DATEADD(day, 7, GetDate()) " +
-               "AND startTime > GetDate()";
-
-  try {
-      DatabaseConnection dbConn = DatabaseConnection.getInstance();
-      PreparedStatement pstmt = dbConn.getConnection().prepareStatement(sql);
-      ResultSet rs = pstmt.executeQuery();
-
-      while(rs.next()) {
-          Timestamp startTime = rs.getTimestamp("startTime");
-          schedules.add(startTime);
-      }
-
-      updateDateComboBox(schedules);
-
-  } catch (SQLException e) {
-      e.printStackTrace(); 
-  }
-}
+    
+    private void populateDateComboBoxFromDatabase() {
+    	ScheduleController scheduleController = new ScheduleController();
+    	List<Timestamp> timestamps = new ArrayList<>();
+    	List<Schedule> allSchedules = scheduleController.getAllAvailableSchedules();
+    	for (Schedule schedule : allSchedules) {
+    		timestamps.add(schedule.getStartTime());
+    	}
+    	updateDateComboBox(timestamps);
+    }
   
     private void clearForm() {
         serviceComboBox.setSelectedIndex(0);
