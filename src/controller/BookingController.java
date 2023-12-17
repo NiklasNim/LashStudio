@@ -1,6 +1,7 @@
 package controller;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import database.*;
 import model.*;
@@ -41,6 +42,12 @@ public class BookingController {
 
         bookingDB.addBooking(newBooking);
     }  
+	
+	public void makeBooking(LocalDate bookingDate, int phone, int scheduleId, int serviceId) {
+		List<Integer> serviceIds = new ArrayList<>();
+        serviceIds.add(serviceId);
+        makeBooking(bookingDate, phone, scheduleId, serviceIds);
+	}
 	
 	public void addBookingLine(int scheduleId , Booking booking, Service service, BigDecimal unitPrice) {
 	    BookingLine newBookingLine = new BookingLine(service, unitPrice);
