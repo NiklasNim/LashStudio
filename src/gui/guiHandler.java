@@ -44,7 +44,7 @@ public class guiHandler  {
 	}
 	
 	private static void setSize(JFrame frame) {
-		 frame.setSize(800, 600);
+		 frame.setSize(900, 600);
 	     frame.setLocationRelativeTo(null);
 	}
 }
