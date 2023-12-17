@@ -24,8 +24,7 @@ public class CreateBookingUI extends JFrame {
     private ScheduleController scheduleController;
     private JTextField nameTextField;
     private JComboBox<String> dateComboBox;
-    private JTextArea txtBookingSummary;
-
+    
     public CreateBookingUI() {
         this.serviceController = new ServiceController();
         this.customerController = new CustomerController();
@@ -53,13 +52,6 @@ public class CreateBookingUI extends JFrame {
         dateComboBox = new JComboBox<>();
         getContentPane().add(dateComboBox);
         populatDateComboBoxFromDatabase();
-
-        getContentPane().add(new JLabel("Booking Sammendrag:"));
-        txtBookingSummary = new JTextArea(5, 20); // Brug JTextArea for at tillade flere linjer
-        txtBookingSummary.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(txtBookingSummary); // Gør JTextArea scrollable
-        scrollPane.setPreferredSize(new Dimension(400, 100)); // Justér størrelsen efter behov
-        getContentPane().add(scrollPane);
 
         JButton btnBack = new JButton("Tilbage");
         btnBack.addActionListener(e -> goBackClicked());
@@ -119,9 +111,8 @@ public class CreateBookingUI extends JFrame {
             String bookingSummary = "Service: " + selectedService +
                                     ", Kunde: " + customer.getFirstName() + " " + customer.getLastName() +
                                     ", Dato/Tid: " + selectedTimestamp;
-            txtBookingSummary.setText(bookingSummary);
-
-            JOptionPane.showMessageDialog(this, "Booking gemt med succes.");
+            
+            JOptionPane.showMessageDialog(this, "Booking gemt med succes. " + bookingSummary);
             clearForm();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Fejl under oprettelse af booking: " + ex.getMessage(), "Booking Fejl", JOptionPane.ERROR_MESSAGE);
@@ -165,7 +156,6 @@ public class CreateBookingUI extends JFrame {
         serviceComboBox.setSelectedIndex(0);
         nameTextField.setText("");
         dateComboBox.setSelectedIndex(0);
-        txtBookingSummary.setText("");
     }
 
     private void goBackClicked() {
