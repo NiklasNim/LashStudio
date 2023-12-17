@@ -46,8 +46,9 @@ public class CreateBookingUI extends JFrame {
         populateDateComboBoxFromDatabase();
 
         JButton btnBack = new JButton("Tilbage");
-        btnBack.addActionListener(e -> goBackClicked());
+        btnBack.addActionListener(e -> guiHandler.goBack());
         getContentPane().add(btnBack);
+        
 
         JButton btnSubmit = new JButton("Udfør Booking");
         btnSubmit.addActionListener(e -> submitBooking());
@@ -85,6 +86,7 @@ public class CreateBookingUI extends JFrame {
             
             System.out.println("Succesfuld booking");
             JOptionPane.showMessageDialog(this, "Booking gemt med succes. " + bookingSummary);
+            guiHandler.goBack();
     
             clearForm();
         } catch (Exception ex) {

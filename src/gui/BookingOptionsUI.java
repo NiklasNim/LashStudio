@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.JButton;
@@ -66,7 +65,7 @@ public class BookingOptionsUI extends JFrame {
         JButton btnBackToMain = new JButton("Tilbage til hovedmenu");
         btnBackToMain.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                goBackToMain();
+                guiHandler.goBack();
             }
         });
         btnBackToMain.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -75,15 +74,8 @@ public class BookingOptionsUI extends JFrame {
         contentPane.add(buttonPanel);
     }
 
-    private void goBackToMain() {
-        setVisible(false);
-        MainWindow mainWindow = new MainWindow();
-		mainWindow.setVisible(true);
-    }
-    
+
 	private void bookingClicked() {
-		setVisible(false);
-		CreateBookingUI createBooking = new CreateBookingUI();
-		createBooking.setVisible(true);
+		guiHandler.createBookingUI();
 	}
 }

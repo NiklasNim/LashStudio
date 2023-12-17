@@ -61,8 +61,7 @@ public class MainWindow extends JFrame {
     }
 
     private void openBookingOptions() {
-        BookingOptionsUI bookingOptions = new BookingOptionsUI();
-        bookingOptions.setVisible(true);
+        guiHandler.createBookingOptionsUI();
     }
 
     private void openOrderOptions() {

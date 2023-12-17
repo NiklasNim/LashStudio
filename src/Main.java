@@ -1,4 +1,4 @@
-import gui.MainWindow;
+import gui.guiHandler;
 import javax.swing.SwingUtilities;
 
 public class Main {
@@ -6,8 +6,7 @@ public class Main {
     	SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    MainWindow mainWindow = new MainWindow();
-                    mainWindow.setVisible(true);
+                    guiHandler.createMainWindow();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
