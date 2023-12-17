@@ -6,7 +6,6 @@ import model.Schedule;
 import model.Service;
 import java.awt.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CreateBookingUI extends JFrame {

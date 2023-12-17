@@ -36,9 +36,12 @@ public class BookingOptionsUI extends JFrame {
         JButton btnNewButton = new JButton("Opret Booking");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // BookingClicked();
+                bookingClicked();
             }
         });
+        
+     
+        
         btnNewButton.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         buttonPanel.add(btnNewButton);
 
@@ -77,4 +80,10 @@ public class BookingOptionsUI extends JFrame {
         MainWindow mainWindow = new MainWindow();
 		mainWindow.setVisible(true);
     }
+    
+	private void bookingClicked() {
+		setVisible(false);
+		CreateBookingUI createBooking = new CreateBookingUI();
+		createBooking.setVisible(true);
+	}
 }

@@ -1,21 +1,17 @@
-import controller.*;
-import java.util.*;
-import java.time.*;
+import gui.MainWindow;
+import javax.swing.SwingUtilities;
 
 public class Main {
     public static void main(String[] args) {
-        BookingController bookingController = new BookingController();
-        LocalDate bookingDate = LocalDate.now();  // Eksempel dato
-        int phone = 20232024;
-        int scheduleId = 86;  // Eksempel tidsplans-ID
-        List<Integer> serviceIds = Arrays.asList(3, 4, 5);  // Eksempel service-IDs
-
-        try {
-        	System.out.println("Telefonnummer, der bruges til at søge kunde: " + phone);
-            bookingController.makeBooking(bookingDate, phone, scheduleId, serviceIds);
-            System.out.println("Booking blev succesfuldt oprettet.");
-        } catch (Exception e) {
-            System.err.println("Fejl under oprettelse af booking: " + e.getMessage());
-        }
+    	SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    MainWindow mainWindow = new MainWindow();
+                    mainWindow.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }
