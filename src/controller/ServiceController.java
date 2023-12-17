@@ -1,5 +1,6 @@
 package controller;
 import model.Service;
+import java.util.List;
 import database.*;
 
 public class ServiceController {
@@ -11,5 +12,9 @@ public class ServiceController {
 
 	public Service findServiceById(int serviceId) {
 		return serviceDB.findServiceById(serviceId);
+	}
+	
+	public List<Service> getAllServices() {
+		return serviceDB.getAllServices();
 	}
 }

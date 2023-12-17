@@ -1,7 +1,5 @@
 package model;
-
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 
 public class Service {
 	private int serviceId;
@@ -69,6 +67,8 @@ public class Service {
 		this.locationId = locationId;
 	}
 	
-	
+	public String toString() {
+		return getDescription() + " " + getPrice().doubleValue();
+	}
 
 }

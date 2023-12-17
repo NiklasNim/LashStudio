@@ -3,7 +3,9 @@ package gui;
 import javax.swing.*;
 
 import connectDatabase.DatabaseConnection;
+import controller.ServiceController;
 import model.Schedule;
+import model.Service;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,12 +18,14 @@ import java.util.List;
 import java.sql.Timestamp;
 
 public class CreateBookingUI extends JFrame {
-    private JComboBox<String> serviceTypeComboBox;
+	private JComboBox<Service> serviceComboBox;
+    private ServiceController serviceController;
     private JTextField nameTextField;
     private JComboBox<String> dateComboBox;
     private JTextField txtPrisHer;
 
     public CreateBookingUI() {
+    	this.serviceController = new ServiceController();
         initialize();
     }
 
@@ -34,8 +38,9 @@ public class CreateBookingUI extends JFrame {
         JLabel lblNewLabel1 = new JLabel("Vælg Service Type:");
         getContentPane().add(lblNewLabel1);
 
-        serviceTypeComboBox = new JComboBox<>(new String[]{"Hårklipning", "Negle", "Lashes"});
-        getContentPane().add(serviceTypeComboBox);
+        serviceComboBox = new JComboBox<>();
+        getContentPane().add(serviceComboBox);
+        updateServiceComboBox();
 
         JLabel lblNewLabel2 = new JLabel("Indtast navn:");
         getContentPane().add(lblNewLabel2);
@@ -77,7 +82,7 @@ public class CreateBookingUI extends JFrame {
     }
 
     private void submitBooking() {
-        String serviceType = (String) serviceTypeComboBox.getSelectedItem();
+        String serviceType = (String) serviceComboBox.getSelectedItem();
         String name = nameTextField.getText();
         //String time = (String) timeComboBox.getSelectedItem();
         String date = (String) dateComboBox.getSelectedItem();
@@ -91,10 +96,17 @@ public class CreateBookingUI extends JFrame {
     }
 
     private void clearForm() {
-        serviceTypeComboBox.setSelectedIndex(0);
+        serviceComboBox.setSelectedIndex(0);
         nameTextField.setText("");
         //timeComboBox.setSelectedIndex(0);
         dateComboBox.setSelectedIndex(0);
+    }
+    
+    private void updateServiceComboBox() {
+        List<Service> services = serviceController.getAllServices();
+        for (Service service : services) {
+            serviceComboBox.addItem(service);
+        }
     }
 
     public static void main(String[] args) {

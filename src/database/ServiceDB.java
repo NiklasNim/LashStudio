@@ -2,18 +2,12 @@ package database;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.*;
+
 import connectDatabase.DatabaseConnection;
 import model.Service;
 
 public class ServiceDB implements ServiceDBIF {
-	public static ServiceDB instance;
-
-	public static ServiceDB getInstance() {
-		if (instance == null) {
-			instance = new ServiceDB();
-		}
-		return instance;
-	}
 
     public Service findServiceById(int serviceId) {
         String sqlQuery = "SELECT * FROM service WHERE serviceId = ?";
@@ -62,6 +56,28 @@ public class ServiceDB implements ServiceDBIF {
 			sExc.printStackTrace();
 		}
 		return availableTime;
+	}
+	
+	public List<Service> getAllServices() {
+	    List<Service> allServices = new ArrayList<>();
+	    String sqlQuery = "SELECT * FROM service";
+	    try {
+	        DatabaseConnection dbConn = DatabaseConnection.getInstance();
+	        PreparedStatement preparedStatement = dbConn.getConnection().prepareStatement(sqlQuery);
+	        ResultSet rs = preparedStatement.executeQuery();
+	        
+	        while (rs.next()) {
+	            int serviceId = rs.getInt("serviceId");
+	            BigDecimal price = rs.getBigDecimal("price");
+	            String description = rs.getString("description");
+	            String serviceType = rs.getString("serviceType");
+	            int locationId = rs.getInt("locationId_FK");
+	            allServices.add(new Service(serviceId, price, description, serviceType, locationId));
+	        }
+	    } catch (SQLException sExc) {
+	        sExc.printStackTrace();
+	    }
+	    return allServices;
 	}
 
 }
