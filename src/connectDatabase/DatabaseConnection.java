@@ -84,7 +84,6 @@ public class DatabaseConnection {
 				rs.next();
 				res = rs.getInt(1);
 			}
-			//s.close(); -- the try block does this for us now
 
 		} catch (SQLException e) {
 			e.printStackTrace();

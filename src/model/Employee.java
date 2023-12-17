@@ -1,7 +1,6 @@
 package model;
 
 public class Employee {
-	// bookingLine??
 	private String firstName;
 	private String lastName; 
 	private int employeeId; 

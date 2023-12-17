@@ -8,7 +8,7 @@ public class OrderLine {
 	private Order order;
 	private int quantity; 
 	private BigDecimal unitPrice;
-	// private Money unitPrice; 
+	
 	
 	public OrderLine(Product product, Order order, int quantity, BigDecimal unitPrice) {
 		this.product = product;

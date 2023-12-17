@@ -1,11 +1,9 @@
 package model;
 
 import java.time.LocalDate;
-//import java.util.Date;
 
 public class Order {
 	private LocalDate orderDate;
-	//private Date orderDate;
 	private int orderId;
 
 	public Order(LocalDate orderDate, int orderId) {
