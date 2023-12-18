@@ -29,12 +29,12 @@ public class CreateBookingUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new GridLayout(6, 2, 10, 10));
 
-        getContentPane().add(new JLabel("Vælg Service Type:"));
+        getContentPane().add(new JLabel("Vælg Service inklusiv pris:"));
         serviceComboBox = new JComboBox<>();
         getContentPane().add(serviceComboBox);
         updateServiceComboBox();
 
-        getContentPane().add(new JLabel("Indtast telefonnummer:"));
+        getContentPane().add(new JLabel("Indtast kundens telefonnummer:"));
         nameTextField = new JTextField();
         getContentPane().add(nameTextField);
         nameTextField.setColumns(10);
