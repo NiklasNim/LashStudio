@@ -18,6 +18,8 @@ public class CreateBookingUI extends JFrame {
     private JComboBox<Schedule> dateComboBox;
     
     public CreateBookingUI() {
+    	setFont(new Font("Arial", Font.PLAIN, 12));
+    	getContentPane().setFont(new Font("Arial", Font.PLAIN, 13));
         this.serviceController = new ServiceController();
         this.bookingController = new BookingController();
         this.scheduleController = new ScheduleController();
@@ -29,27 +31,38 @@ public class CreateBookingUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new GridLayout(6, 2, 10, 10));
 
-        getContentPane().add(new JLabel("Vælg Service inklusiv pris:"));
+        JLabel label_2 = new JLabel("Vælg Service inklusiv pris:");
+        label_2.setFont(new Font("Arial", Font.PLAIN, 13));
+        getContentPane().add(label_2);
         serviceComboBox = new JComboBox<>();
+        serviceComboBox.setFont(new Font("Arial", Font.PLAIN, 13));
         getContentPane().add(serviceComboBox);
         updateServiceComboBox();
 
-        getContentPane().add(new JLabel("Indtast kundens telefonnummer:"));
+        JLabel label_1 = new JLabel("Indtast kundens telefonnummer:");
+        label_1.setFont(new Font("Arial", Font.PLAIN, 13));
+        getContentPane().add(label_1);
         nameTextField = new JTextField();
+        nameTextField.setFont(new Font("Arial", Font.PLAIN, 13));
         getContentPane().add(nameTextField);
         nameTextField.setColumns(10);
 
-        getContentPane().add(new JLabel("Vælg Dag og Tidspunkt:"));
+        JLabel label = new JLabel("Vælg Dag og Tidspunkt:");
+        label.setFont(new Font("Arial", Font.PLAIN, 13));
+        getContentPane().add(label);
         dateComboBox = new JComboBox<>();
+        dateComboBox.setFont(new Font("Arial", Font.PLAIN, 13));
         getContentPane().add(dateComboBox);
         populateDateComboBoxFromDatabase();
 
         JButton btnBack = new JButton("Tilbage");
+        btnBack.setFont(new Font("Arial", Font.PLAIN, 13));
         btnBack.addActionListener(e -> guiHandler.goBack());
         getContentPane().add(btnBack);
         
 
         JButton btnSubmit = new JButton("Udfør Booking");
+        btnSubmit.setFont(new Font("Arial", Font.PLAIN, 13));
         btnSubmit.addActionListener(e -> submitBooking());
         getContentPane().add(btnSubmit);
     }

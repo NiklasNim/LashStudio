@@ -25,7 +25,7 @@ public class BookingOptionsUI extends JFrame {
         contentPane.setLayout(new GridLayout(0, 1, 0, 0));
 
         JLabel lblNewLabel = new JLabel("Booking valgmuligheder");
-        lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 40));
+        lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 40));
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(lblNewLabel);
 
@@ -40,7 +40,7 @@ public class BookingOptionsUI extends JFrame {
         
      
         
-        btnNewButton.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        btnNewButton.setFont(new Font("Arial", Font.PLAIN, 20));
         buttonPanel.add(btnNewButton);
 
         JButton btnNewButton_2 = new JButton("Redigér booking");
@@ -49,7 +49,7 @@ public class BookingOptionsUI extends JFrame {
                 // OrderClicked();
             }
         });
-        btnNewButton_2.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        btnNewButton_2.setFont(new Font("Arial", Font.PLAIN, 20));
         buttonPanel.add(btnNewButton_2);
 
         JButton btnNewButton_1 = new JButton("Slet booking");
@@ -58,7 +58,7 @@ public class BookingOptionsUI extends JFrame {
                 // CustomerClicked();
             }
         });
-        btnNewButton_1.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        btnNewButton_1.setFont(new Font("Arial", Font.PLAIN, 20));
         buttonPanel.add(btnNewButton_1);
 
         JButton btnBackToMain = new JButton("Tilbage til hovedmenu");
@@ -67,7 +67,7 @@ public class BookingOptionsUI extends JFrame {
                 guiHandler.goBack();
             }
         });
-        btnBackToMain.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        btnBackToMain.setFont(new Font("Arial", Font.PLAIN, 20));
         buttonPanel.add(btnBackToMain);
 
         contentPane.add(buttonPanel);

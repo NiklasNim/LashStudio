@@ -18,6 +18,7 @@ public class MainWindow extends JFrame {
     private JPanel contentPane;
     
     public MainWindow() {
+    	setFont(new Font("Arial", Font.PLAIN, 12));
     	setTitle("Hovedmenu"); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         contentPane = new JPanel();
@@ -26,7 +27,7 @@ public class MainWindow extends JFrame {
         contentPane.setLayout(new GridLayout(0, 1, 0, 0));
 
         JLabel lblNewLabel = new JLabel("Lash Studio");
-        lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 72));
+        lblNewLabel.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 72));
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
         contentPane.add(lblNewLabel);
 
@@ -36,7 +37,7 @@ public class MainWindow extends JFrame {
                 openBookingOptions();
             }
         });
-        btnNewButton.setFont(new Font("Lucida Grande", Font.BOLD, 38));
+        btnNewButton.setFont(new Font("Arial", Font.BOLD, 38));
         contentPane.add(btnNewButton);
 
         JButton btnNewButton_2 = new JButton("Produkter/Ordre");
@@ -45,7 +46,7 @@ public class MainWindow extends JFrame {
                 openOrderOptions();
             }
         });
-        btnNewButton_2.setFont(new Font("Lucida Grande", Font.BOLD, 38));
+        btnNewButton_2.setFont(new Font("Arial", Font.BOLD, 38));
         contentPane.add(btnNewButton_2);
 
         JButton btnNewButton_1 = new JButton("Kunde");
@@ -54,7 +55,7 @@ public class MainWindow extends JFrame {
                 openCustomerOptions();
             }
         });
-        btnNewButton_1.setFont(new Font("Lucida Grande", Font.BOLD, 38));
+        btnNewButton_1.setFont(new Font("Arial", Font.BOLD, 38));
         contentPane.add(btnNewButton_1);
     }
 
