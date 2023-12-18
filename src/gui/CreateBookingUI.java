@@ -92,7 +92,7 @@ public class CreateBookingUI extends JFrame {
             Schedule selectedSchedule = (Schedule)dateComboBox.getSelectedItem();
             LocalDate bookingDate = selectedSchedule.getStartTime().toLocalDateTime().toLocalDate();            
             
-            bookingController.makeBooking(bookingDate, phone, selectedSchedule.getScheduleId(), selectedService.getServiceId());
+            bookingController.createBooking(bookingDate, phone, selectedSchedule.getScheduleId(), selectedService.getServiceId());
 
             String bookingSummary = "Service: " + selectedService + ", Dato/Tid: " + selectedSchedule;
             

@@ -19,7 +19,7 @@ public class BookingController {
 		this.bookingDB = new BookingDB();
 	}
 
-	public void makeBooking(LocalDate bookingDate, int phone, int scheduleId, List<Integer> serviceIds) {
+	public void createBooking(LocalDate bookingDate, int phone, int scheduleId, List<Integer> serviceIds) {
 		if(!canBook(scheduleId)) {
 			throw new RuntimeException("Tidsplanen er ikke tilgængelig for booking.");
 		}
@@ -43,10 +43,10 @@ public class BookingController {
         bookingDB.addBooking(newBooking);
     }  
 	
-	public void makeBooking(LocalDate bookingDate, int phone, int scheduleId, int serviceId) {
+	public void createBooking(LocalDate bookingDate, int phone, int scheduleId, int serviceId) {
 		List<Integer> serviceIds = new ArrayList<>();
         serviceIds.add(serviceId);
-        makeBooking(bookingDate, phone, scheduleId, serviceIds);
+        createBooking(bookingDate, phone, scheduleId, serviceIds);
 	}
 	
 	public void addBookingLine(int scheduleId , Booking booking, Service service, BigDecimal unitPrice) {
