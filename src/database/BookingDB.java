@@ -42,7 +42,7 @@ public class BookingDB implements BookingDBIF {
 
 	}
 
-	private void addBookingLine(BookingLine bookingLine, int bookingId) {
+	public void addBookingLine(BookingLine bookingLine, int bookingId) {
 		String sqlQuery = "INSERT INTO BookingLine values (?, ?, ?, ?)";
 	    
 	    try {
@@ -67,7 +67,7 @@ public class BookingDB implements BookingDBIF {
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	        System.out.println("Error occurred while adding the booking: " + e.getMessage());
+	        System.out.println("Fejl opstået ved tilføjelse af booking: " + e.getMessage());
 	    }
 	}
 }
