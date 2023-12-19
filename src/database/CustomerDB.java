@@ -5,6 +5,7 @@ import connectDatabase.DatabaseConnection;
 
 public class CustomerDB implements CustomerDBIF {
 
+	// Opretter en ny kunde i databasen
     public void createCustomer(Customer newCustomer) {
         String sql = "INSERT INTO customer (firstName, lastName, phone) VALUES (?, ?, ?)";
 
@@ -18,9 +19,9 @@ public class CustomerDB implements CustomerDBIF {
                 int rowsInserted = statement.executeUpdate();
 
                 if (rowsInserted > 0) {
-                    System.out.println("Customer created successfully!");
+                    System.out.println("Kunde oprette!Customer created successfully!");
                 } else {
-                    System.out.println("Failed to create customer.");
+                    System.out.println("Fejlede på at oprette kunde.");
                 }
             }
         } catch (SQLException e) {
@@ -28,6 +29,7 @@ public class CustomerDB implements CustomerDBIF {
         }
     }
 
+    // Metode til at finde en kunde på telefonnummer 
     public Customer findCustomerByPhone(int phone) {
         Customer foundCustomer = null;
         String sql = "SELECT * FROM customer WHERE phone = ?";

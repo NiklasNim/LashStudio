@@ -8,6 +8,7 @@ import model.Service;
 
 public class ServiceDB implements ServiceDBIF {
 
+	// Find en service baseret på serviceId
     public Service findServiceById(int serviceId) {
         String sqlQuery = "SELECT * FROM service WHERE serviceId = ?";
         Service service = null;
@@ -34,6 +35,7 @@ public class ServiceDB implements ServiceDBIF {
         return service;
     }
 
+    // Find tilgængelige datoer for en given service baseret på service-id
 	public LocalDateTime findAvailableServiceDates(int serviceId) {
 		String sqlQuery = "SELECT timePeriod FROM service WHERE serviceId = ?";
 		LocalDateTime availableTime = null;
@@ -44,12 +46,12 @@ public class ServiceDB implements ServiceDBIF {
 
 			preparedStatement.setInt(1, serviceId);
 			ResultSet rs = preparedStatement.executeQuery();
-			System.out.println("Finding available time for service with serviceId " + serviceId);
+			System.out.println("Finder ledige tid for service med serviceId " + serviceId);
 
 			while (rs.next()) {
 				Timestamp timePeriod = rs.getTimestamp("timePeriod");
 				availableTime = timePeriod.toLocalDateTime();
-				System.out.println("Found available time: " + availableTime);
+				System.out.println("Fandt ledig tid: " + availableTime);
 			}
 		} catch (SQLException sExc) {
 			sExc.printStackTrace();
@@ -57,6 +59,7 @@ public class ServiceDB implements ServiceDBIF {
 		return availableTime;
 	}
 	
+	// Henter alle tjenester fra databasen
 	public List<Service> getAllServices() {
 	    List<Service> allServices = new ArrayList<>();
 	    String sqlQuery = "SELECT * FROM service";

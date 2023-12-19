@@ -12,6 +12,7 @@ import connectDatabase.DatabaseConnection;
 
 public class ScheduleDB implements ScheduleDBIF {
 	
+	// Henter alle de ledige tider, der er ikke er booket indenfor de næste 7 dage
 	public List<Schedule> getAllAvailableSchedules() {
 	    List<Schedule> schedules = new ArrayList<>();
 	    String sql = "SELECT schedule.* FROM Schedule " +
@@ -43,7 +44,7 @@ public class ScheduleDB implements ScheduleDBIF {
 	    return schedules;
 	}
 
-	
+	// Finder en tidsplan baseret på scheduleId
     public Schedule findScheduleById(int scheduleId) {
         String sqlQuery = "SELECT * FROM Schedule WHERE scheduleId = ?";
         Schedule schedule = null;
@@ -53,7 +54,7 @@ public class ScheduleDB implements ScheduleDBIF {
             PreparedStatement pstmt = dbConn.getConnection().prepareStatement(sqlQuery);
             pstmt.setInt(1, scheduleId);
 
-            System.out.println("Searching for schedule with scheduleId: " + scheduleId);
+            System.out.println("Leder efter tidsplan med scheduleId: " + scheduleId);
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
@@ -64,16 +65,17 @@ public class ScheduleDB implements ScheduleDBIF {
                 schedule = new Schedule(scheduleId, startTime, endTime, employeeId_FK);
                 System.out.println("Found schedule: " + schedule.toString());
             } else {
-                System.out.println("No schedule found with scheduleId: " + scheduleId);
+                System.out.println("Ingen tidsplan fundet med scheduleId: " + scheduleId);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error occurred while searching for schedule: " + e.getMessage());
+            System.out.println("Fejl opstået under søgning efter tidsplane: " + e.getMessage());
         }
 
         return schedule;
     }
 	
+    // Markerer en tidsplan som booket
     public void markScheduleAsBooked(Schedule schedule) {
         String sqlQuery = "UPDATE Schedule SET isBooked = true WHERE scheduleId = ?";
 
@@ -84,14 +86,14 @@ public class ScheduleDB implements ScheduleDBIF {
 
                 int affectedRows = pstmt.executeUpdate();
                 if (affectedRows > 0) {
-                    System.out.println("Schedule with scheduleId " + schedule.getScheduleId() + " has been marked as booked.");
+                    System.out.println("Tidsplan med id " + schedule.getScheduleId() + " er markeret som booket.");
                 } else {
-                    System.out.println("No schedule was marked as booked. ScheduleId might not exist.");
+                    System.out.println("Ingen tidsplan var markeret som booket. ScheduleId eksisterer måske ikke.");
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error occurred while marking schedule as booked: " + e.getMessage());
+            System.out.println("Fejl opstået under markeringen af tidsplan for booking: " + e.getMessage());
         }
     }
 }
