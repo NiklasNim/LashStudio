@@ -42,6 +42,7 @@ public class BookingOptionsUI extends JFrame {
         
         btnNewButton.setFont(new Font("Arial", Font.PLAIN, 20));
         buttonPanel.add(btnNewButton);
+        btnNewButton.setToolTipText("Klik her for at oprette en booking");
 
         JButton btnNewButton_2 = new JButton("Redigér booking");
         btnNewButton_2.addActionListener(new ActionListener() {
@@ -51,6 +52,7 @@ public class BookingOptionsUI extends JFrame {
         });
         btnNewButton_2.setFont(new Font("Arial", Font.PLAIN, 20));
         buttonPanel.add(btnNewButton_2);
+        btnNewButton_2.setToolTipText("Klik her for at gå til redigerer en booking");
 
         JButton btnNewButton_1 = new JButton("Slet booking");
         btnNewButton_1.addActionListener(new ActionListener() {
@@ -60,6 +62,7 @@ public class BookingOptionsUI extends JFrame {
         });
         btnNewButton_1.setFont(new Font("Arial", Font.PLAIN, 20));
         buttonPanel.add(btnNewButton_1);
+        btnNewButton_1.setToolTipText("Klik her for at gå slette en eksisterende bookning");
 
         JButton btnBackToMain = new JButton("Tilbage til hovedmenu");
         btnBackToMain.addActionListener(new ActionListener() {
@@ -71,6 +74,7 @@ public class BookingOptionsUI extends JFrame {
         buttonPanel.add(btnBackToMain);
 
         contentPane.add(buttonPanel);
+        btnBackToMain.setToolTipText("Klik her for at gå tilbage til hovedmenuen");
     }
 
 

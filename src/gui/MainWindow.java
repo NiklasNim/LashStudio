@@ -39,6 +39,7 @@ public class MainWindow extends JFrame {
         });
         btnNewButton.setFont(new Font("Arial", Font.BOLD, 38));
         contentPane.add(btnNewButton);
+        btnNewButton.setToolTipText("Klik her for at gå til booking valgmuligheder");
 
         JButton btnNewButton_2 = new JButton("Produkter/Ordre");
         btnNewButton_2.addActionListener(new ActionListener() {
@@ -48,6 +49,7 @@ public class MainWindow extends JFrame {
         });
         btnNewButton_2.setFont(new Font("Arial", Font.BOLD, 38));
         contentPane.add(btnNewButton_2);
+        btnNewButton_2.setToolTipText("Klik her for at gå til ordre valgmuligheder");
 
         JButton btnNewButton_1 = new JButton("Kunde");
         btnNewButton_1.addActionListener(new ActionListener() {
@@ -57,6 +59,7 @@ public class MainWindow extends JFrame {
         });
         btnNewButton_1.setFont(new Font("Arial", Font.BOLD, 38));
         contentPane.add(btnNewButton_1);
+        btnNewButton_1.setToolTipText("Klik her for at gå til kunde valgmuligheder");
     }
 
     private void openBookingOptions() {

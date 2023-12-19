@@ -46,6 +46,7 @@ public class CreateBookingUI extends JFrame {
         nameTextField.setFont(new Font("Arial", Font.PLAIN, 13));
         getContentPane().add(nameTextField);
         nameTextField.setColumns(10);
+        nameTextField.setToolTipText("Indsæt kundens telefonnummer. Bemærk kun danske numre");
 
         JLabel label = new JLabel("Vælg dag og tidspunkt:");
         label.setFont(new Font("Arial", Font.PLAIN, 13));
@@ -54,17 +55,20 @@ public class CreateBookingUI extends JFrame {
         dateComboBox.setFont(new Font("Arial", Font.PLAIN, 13));
         getContentPane().add(dateComboBox);
         populateDateComboBoxFromDatabase();
+        dateComboBox.setToolTipText("Klik her for at vælge tidspunkt og dato");
 
         JButton btnBack = new JButton("Tilbage");
         btnBack.setFont(new Font("Arial", Font.PLAIN, 13));
         btnBack.addActionListener(e -> guiHandler.goBack());
         getContentPane().add(btnBack);
+        btnBack.setToolTipText("Klik her for at gå tilbage til booking valgmuligheder");
         
 
         JButton btnSubmit = new JButton("Udfør Booking");
         btnSubmit.setFont(new Font("Arial", Font.PLAIN, 13));
         btnSubmit.addActionListener(e -> submitBooking());
         getContentPane().add(btnSubmit);
+        btnSubmit.setToolTipText("Klik her for at udføre booking");
     }
 
 
