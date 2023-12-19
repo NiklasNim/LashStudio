@@ -41,7 +41,7 @@ public class MainWindow extends JFrame {
         contentPane.add(btnNewButton);
         btnNewButton.setToolTipText("Klik her for at gå til booking valgmuligheder");
 
-        JButton btnNewButton_2 = new JButton("Produkter/Ordre");
+        JButton btnNewButton_2 = new JButton("Ordre");
         btnNewButton_2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 openOrderOptions();
