@@ -17,6 +17,7 @@ public class CreateBookingUI extends JFrame {
     private JTextField nameTextField;
     private JComboBox<Schedule> dateComboBox;
     
+    // Konstruktør for CreateBookingUI
     public CreateBookingUI() {
     	setFont(new Font("Arial", Font.PLAIN, 12));
     	getContentPane().setFont(new Font("Arial", Font.PLAIN, 13));
@@ -26,6 +27,7 @@ public class CreateBookingUI extends JFrame {
         initialize();
     }
 
+    // Initialisering for at opsætte GUI
     private void initialize() {
         setTitle("Booking side");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,7 +73,7 @@ public class CreateBookingUI extends JFrame {
         btnSubmit.setToolTipText("Klik her for at udføre booking");
     }
 
-
+    // Metode til at håndtere booking-submit
     private void submitBooking() {
         try {
             Service selectedService = (Service) serviceComboBox.getSelectedItem();
@@ -110,7 +112,7 @@ public class CreateBookingUI extends JFrame {
         }
     }
 
-
+    // Opdatere dropdown menuen for valg af service
     private void updateServiceComboBox() {
         List<Service> services = serviceController.getAllServices();
         for (Service service : services) {
@@ -118,17 +120,20 @@ public class CreateBookingUI extends JFrame {
         }
     }
     
+    // Udfylder dropdown menuen med tidsplaner fra databasen
     private void populateDateComboBoxFromDatabase() {
     	List<Schedule> allSchedules = scheduleController.getAllAvailableSchedules();
     	updateDateComboBox(allSchedules);
     }
   
+    // rydder formularen
     private void clearForm() {
         serviceComboBox.setSelectedIndex(0);
         nameTextField.setText("");
         dateComboBox.setSelectedIndex(0);
     }
     
+    // Opdaterer dropdown med tidsplaner
     private void updateDateComboBox(List<Schedule> schedules) {
 	    dateComboBox.removeAllItems();
 	    for (Schedule schedule : schedules) {
@@ -136,6 +141,7 @@ public class CreateBookingUI extends JFrame {
 	    }
 	}
 
+    // Main til at starte GUI
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {

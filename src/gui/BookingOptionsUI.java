@@ -15,6 +15,7 @@ public class BookingOptionsUI extends JFrame {
 
     private JPanel contentPane;
 
+    // Konstruktør for BookingOptionsUI
     public BookingOptionsUI() {
     	setTitle("Booking valgmuligheder menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,7 +78,7 @@ public class BookingOptionsUI extends JFrame {
         btnBackToMain.setToolTipText("Klik her for at gå tilbage til hovedmenuen");
     }
 
-
+    // Metode til at håndtere klik på "Opret Booking" knappen
 	private void bookingClicked() {
 		guiHandler.createBookingUI();
 	}

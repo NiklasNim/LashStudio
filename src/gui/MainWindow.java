@@ -17,6 +17,7 @@ public class MainWindow extends JFrame {
 
     private JPanel contentPane;
     
+    // Konstruktør til oprettelse af hovedvinduet
     public MainWindow() {
     	setFont(new Font("Arial", Font.PLAIN, 12));
     	setTitle("Hovedmenu"); 
@@ -62,15 +63,18 @@ public class MainWindow extends JFrame {
         btnNewButton_1.setToolTipText("Klik her for at gå til kunde valgmuligheder");
     }
 
+    // Åbn booking valgmuligheder
     private void openBookingOptions() {
         guiHandler.createBookingOptionsUI();
     }
 
+    // Åbn ordre valgmuligheder
     private void openOrderOptions() {
         OrderOptionsUI orderOptions = new OrderOptionsUI();
         orderOptions.setVisible(true);
     }
 
+    // Åbn kunde valgmuligheder
     private void openCustomerOptions() {
         CustomerOptionsUI customerOptions = new CustomerOptionsUI();
         customerOptions.setVisible(true);
