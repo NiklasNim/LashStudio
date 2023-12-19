@@ -9,6 +9,7 @@ import model.BookingLine;
 
 public class BookingDB implements BookingDBIF {
 	
+	// Tilføjer en booking til databasen
 	public void addBooking(Booking booking) {
 	    String sqlQuery = "INSERT INTO Booking values (?, ?)";
 
@@ -37,11 +38,12 @@ public class BookingDB implements BookingDBIF {
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	        System.out.println("Error occurred while adding the booking: " + e.getMessage());
+	        System.out.println("Fejl opstået ved tilføjelse af bookingen: " + e.getMessage());
 	    }
 
 	}
 
+	// Tilføjer en bookingline til databasen 
 	public void addBookingLine(BookingLine bookingLine, int bookingId) {
 		String sqlQuery = "INSERT INTO BookingLine values (?, ?, ?, ?)";
 	    

@@ -1,6 +1,10 @@
 package database;
 import model.Booking;
+import model.BookingLine;
 
 public interface BookingDBIF {
-	void addBooking(Booking booking);
+	// Metode til at tilføje en booking til databasen
+	void addBooking(Booking booking); 
+	// Metode der tilføjer en bookingline til databasen
+	void addBookingLine(BookingLine bookingLine, int bookingId); 
 }
