@@ -9,8 +9,8 @@ import java.sql.Statement;
 
 public class DatabaseConnection {
 	
-	//Singleton-instant af DatabaseConnection
-	private static DatabaseConnection databaseConnection;
+	//Singleton-instans af DatabaseConnection
+	private static DatabaseConnection instance;
 	
 	//JDBC-forbindelse og databaseinformation 
 	private Connection connection = null;
@@ -41,10 +41,10 @@ public class DatabaseConnection {
 	
     // Singleton-metode for at hente en instans af DatabaseConnection
 	public static DatabaseConnection getInstance() {
-		if(databaseConnection == null) {
-			databaseConnection = new DatabaseConnection();
+		if(instance == null) {
+			instance = new DatabaseConnection();
 		}
-		return databaseConnection;
+		return instance;
 	}
 	
 	// Starter database transaktion
