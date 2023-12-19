@@ -27,11 +27,11 @@ public class CreateBookingUI extends JFrame {
     }
 
     private void initialize() {
-        setTitle("Booking Page");
+        setTitle("Booking side");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new GridLayout(6, 2, 10, 10));
 
-        JLabel label_2 = new JLabel("Vælg Service inklusiv pris:");
+        JLabel label_2 = new JLabel("Vælg service (inklusiv pris):");
         label_2.setFont(new Font("Arial", Font.PLAIN, 13));
         getContentPane().add(label_2);
         serviceComboBox = new JComboBox<>();
@@ -47,7 +47,7 @@ public class CreateBookingUI extends JFrame {
         getContentPane().add(nameTextField);
         nameTextField.setColumns(10);
 
-        JLabel label = new JLabel("Vælg Dag og Tidspunkt:");
+        JLabel label = new JLabel("Vælg dag og tidspunkt:");
         label.setFont(new Font("Arial", Font.PLAIN, 13));
         getContentPane().add(label);
         dateComboBox = new JComboBox<>();

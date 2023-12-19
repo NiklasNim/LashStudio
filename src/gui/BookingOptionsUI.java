@@ -16,7 +16,7 @@ public class BookingOptionsUI extends JFrame {
     private JPanel contentPane;
 
     public BookingOptionsUI() {
-
+    	setTitle("Booking valgmuligheder menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
