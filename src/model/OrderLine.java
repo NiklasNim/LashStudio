@@ -2,53 +2,43 @@ package model;
 
 import java.math.BigDecimal;
 
-
 public class OrderLine {
-	private Product product;
-	private Order order;
-	private int quantity; 
-	private BigDecimal unitPrice;
-	
-	
-	public OrderLine(Product product, Order order, int quantity, BigDecimal unitPrice) {
-		this.product = product;
-		this.order = order;
-		this.quantity = quantity;
-		this.unitPrice = unitPrice;
-	}
+    private int orderLineId;
+    private Product product;
+    private BigDecimal unitPrice;
+    private int quantity;
 
-	public Product getProduct() {
-		return product;
-	}
+    public OrderLine(Product product, BigDecimal unitPrice, int quantity) {
+        this.product = product;
+        this.unitPrice = unitPrice;
+        this.quantity = quantity;
+    }
 
-	public void setProduct(Product product) {
-		this.product = product;
-	}
+    public int getOrderLineId() {
+        return orderLineId;
+    }
 
-	public Order getOrder() {
-		return order;
-	}
+    public void setOrderLineId(int orderLineId) {
+        this.orderLineId = orderLineId;
+    }
 
-	public void setOrder(Order order) {
-		this.order = order;
-	}
+    public Product getProduct() {
+        return product;
+    }
 
-	public int getQuantity() {
-		return quantity;
-	}
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
+    }
 
-	public BigDecimal getUnitPrice() {
-		return unitPrice;
-	}
+    public int getQuantity() {
+        return quantity;
+    }
 
-	public void setUnitPrice(BigDecimal unitPrice) {
-		this.unitPrice = unitPrice;
-	}
-	
-	
-	
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

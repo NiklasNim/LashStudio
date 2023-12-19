@@ -1,71 +1,71 @@
 package database;
 
-import java.sql.*;
 import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import connectDatabase.DatabaseConnection;
 import model.Product;
 
 public class ProductDB implements ProductDBIF {
 
-	private static final String URL = "jdbc:mysql://localhost:3306/your_database";
-	private static final String USER = "your_username";
-	private static final String PASSWORD = "your_password";
+    public List<Product> findAllProducts() {
+        List<Product> products = new ArrayList<>();
 
-	public static Connection connect() throws SQLException {
-		return DriverManager.getConnection(URL, USER, PASSWORD);
-	}
+        try (Connection connection = DatabaseConnection.getInstance().getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM Product")) {
 
-	public List<Product> findAllProducts() {
-		List<Product> products = new ArrayList<>();
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                Date expirationDate = resultSet.getDate("expirationDate");
+                String type = resultSet.getString("type");
+                int stock = resultSet.getInt("stock");
+                int minStock = resultSet.getInt("minStock");
+                BigDecimal price = resultSet.getBigDecimal("price");
+                int barcode = resultSet.getInt("barcode");
 
-		try (Connection connection = connect();
-				PreparedStatement statement = connection.prepareStatement("SELECT * FROM products");
-				ResultSet resultSet = statement.executeQuery()) {
+                Product product = new Product(name, expirationDate, type, stock, minStock, price, barcode);
+                products.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error occurred while fetching products: " + e.getMessage());
+        }
 
-			while (resultSet.next()) {
-				String name = resultSet.getString("name");
-				Date expirationDate = resultSet.getDate("expirationDate");
-				String type = resultSet.getString("type");
-				int stock = resultSet.getInt("stock");
-				int minStock = resultSet.getInt("minStock");
-				BigDecimal price = resultSet.getBigDecimal("price");
-				int barcode = resultSet.getInt("barcode");
+        return products;
+    }
 
-				Product product = new Product(name, expirationDate, type, stock, minStock, price, barcode);
-				products.add(product);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+    public void createProduct(String name, Date expirationDate, String type, int stock, int minStock, BigDecimal price, int barcode) {
+        try (Connection connection = DatabaseConnection.getInstance().getConnection()) {
+            String sql = "INSERT INTO products (name, expirationDate, type, stock, minStock, price, barcode) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-		return products;
-	}
+            try (PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                pstmt.setString(1, name);
+                pstmt.setDate(2, new java.sql.Date(expirationDate.getTime()));
+                pstmt.setString(3, type);
+                pstmt.setInt(4, stock);
+                pstmt.setInt(5, minStock);
+                pstmt.setBigDecimal(6, price);
+                pstmt.setInt(7, barcode);
 
-	public void createProduct(String name, Date expirationDate, String type, int stock, int minStock, BigDecimal price, int barcode) {
-		try (Connection connection = connect()) {
-			String sql = "INSERT INTO products (name, expirationDate, type, stock, minStock, price, barcode) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                int rowsInserted = pstmt.executeUpdate();
 
-			try (PreparedStatement statement = connection.prepareStatement(sql)) {
-				statement.setString(1, name);
-				statement.setDate(2, new java.sql.Date(expirationDate.getTime()));
-				statement.setString(3, type);
-				statement.setInt(4, stock);
-				statement.setInt(5, minStock);
-				statement.setBigDecimal(6, price);
-				statement.setInt(7, barcode);
-
-				int rowsInserted = statement.executeUpdate();
-
-				if (rowsInserted > 0) {
-					System.out.println("Product created successfully!");
-				} else {
-					System.out.println("Failed to create product.");
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+                if (rowsInserted > 0) {
+                    System.out.println("Product created successfully!");
+                } else {
+                    System.out.println("Failed to create product.");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error occurred while creating product: " + e.getMessage());
+        }
+    }
 }

@@ -1,50 +1,59 @@
 package controller;
 
-import java.util.*;
-import model.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import connectDatabase.DatabaseConnection;
+import model.Customer;
+import model.Order;
+import model.OrderLine;
+import model.Product;
+import database.OrderDB;
+import database.ProductDB;
 
 public class OrderController {
-	private List<Order> orders;
+    private OrderDB orderDB;
+    private ProductDB productDB;
 
-	public OrderController() {
-		this.orders = new ArrayList<>();
-	}
+    public OrderController() {
+        this.orderDB = new OrderDB();
+        this.productDB = new ProductDB();
+    }
 
-	public void createOrder(Date orderDate, int orderId) {
-		//Order order = new Order(orderDate, orderId);
-		//orders.add(order);
-	}
+    public void createOrder(java.time.LocalDate orderDate, List<OrderLine> orderLines) {
+        orderDB.addOrder(new Order(orderDate, 0));
 
-	public List<Order> getAllOrders() {
-		return orders;
-	}
+        int orderId = getOrderFromDatabase(); 
 
-	public Order getOrderById(int orderId) {
-		for (Order order : orders) {
-			if (order.getOrderId() == orderId) {
-				return order;
-			}
-			;
-		}
-		return null; // hvis ordren ikke bliver fundet
-	}
+        for (OrderLine orderLine : orderLines) {
+            orderDB.addOrderLine(orderLine, orderId);
+        }
+    }
 
-//	public void updateOrder(int orderId, Date newOrderDate) {
-//		Order order = getOrderById(orderId);
-//		if (order != null) {
-//			order.setOrderDate(newOrderDate);
-//		} else {
-//			System.out.println("Ordren blev ikke fundet");
-//		}
-//	}
+    public List<Product> findAllProducts() {
+        return productDB.findAllProducts();
+    }
 
-	// Metode, der fjerner en order +
-	public void removeOrder(int orderId) {
-		Order order = getOrderById(orderId);
-		if (order != null) {
-			orders.remove(order);
-		} else {
-			System.out.println("Ordren blev ikke fundet"); // Ordren blev ikke fundet ved brug af orderId
-		}
-	}
+    private int getOrderFromDatabase() {
+        try (Connection connection = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement("SELECT MAX(orderId) AS maxOrderId FROM [dbo].[Order]");
+             ResultSet resultSet = statement.executeQuery()) {
+
+            if (resultSet.next()) {
+                int maxOrderId = resultSet.getInt("maxOrderId");
+                return maxOrderId;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error occurred while fetching order from the database: " + e.getMessage());
+        }
+
+        System.out.println("No order found in the database.");
+        return -1;
+    }
 }
+	
