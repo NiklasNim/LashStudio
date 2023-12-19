@@ -12,13 +12,15 @@ public class BookingController {
 	private ScheduleController scheduleController;
 	private BookingDB bookingDB;
 
+	// Konstruktør initialiserer controllerne og databasen
 	public BookingController() {
 		this.serviceController = new ServiceController();
 		this.customerController = new CustomerController();
 		this.scheduleController = new ScheduleController();
 		this.bookingDB = new BookingDB();
 	}
-
+	
+	// Opret en booking med den angivne dato, telefonnummer, tidsplan-id og en liste af service-id'er
 	public void createBooking(LocalDate bookingDate, int phone, int scheduleId, List<Integer> serviceIds) {
 		if(!canBook(scheduleId)) {
 			throw new RuntimeException("Tidsplanen er ikke tilgængelig for booking.");
@@ -41,14 +43,16 @@ public class BookingController {
        }
 
         bookingDB.addBooking(newBooking);
-    }  
+    }
 	
+	// Opret en booking med den angivne dato, telefonnummer, tidsplan-id og en enkelt service-id
 	public void createBooking(LocalDate bookingDate, int phone, int scheduleId, int serviceId) {
 		List<Integer> serviceIds = new ArrayList<>();
         serviceIds.add(serviceId);
         createBooking(bookingDate, phone, scheduleId, serviceIds);
 	}
 	
+	// Tilføj en bookinglinje til en booking med de angivne attributter
 	public void addBookingLine(int scheduleId , Booking booking, Service service, BigDecimal unitPrice) {
 	    BookingLine newBookingLine = new BookingLine(service, unitPrice);
 
@@ -57,7 +61,8 @@ public class BookingController {
 
 	    booking.addBookingLine(newBookingLine);
 	}
-		
+	
+	// Kontroller om booking er mulig på den angivne tidsplan	
 	private boolean canBook(int scheduleId) {
         List<Schedule> scheduleList = scheduleController.getAllAvailableSchedules();
         return scheduleList.stream().anyMatch(schedule -> schedule.getScheduleId() == scheduleId);

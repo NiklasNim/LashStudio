@@ -9,7 +9,10 @@ import java.sql.Statement;
 
 public class DatabaseConnection {
 	
+	//Singleton-instant af DatabaseConnection
 	private static DatabaseConnection databaseConnection;
+	
+	//JDBC-forbindelse og databaseinformation 
 	private Connection connection = null;
 	private static final String serverAddress = "hildur.ucn.dk";
 	private static final String databaseName = "DMA-CSD-V23_10481979";
@@ -18,7 +21,7 @@ public class DatabaseConnection {
 	private static String password = "Password1!";
 	private static final int serverPort = 1433;
 	
-	
+	//Privat konstruktør som opretter JDBC-forbindelsen
     private DatabaseConnection() {
     	String connectionString = String.format("jdbc:sqlserver://%s:%d;databaseName=%s;user=%s;password=%s;encrypt=false", 
                 serverAddress, serverPort, databaseName, userName, password);
@@ -36,7 +39,7 @@ public class DatabaseConnection {
 		}
 	}
 	
-
+    // Singleton-metode for at hente en instans af DatabaseConnection
 	public static DatabaseConnection getInstance() {
 		if(databaseConnection == null) {
 			databaseConnection = new DatabaseConnection();
@@ -44,20 +47,24 @@ public class DatabaseConnection {
 		return databaseConnection;
 	}
 	
+	// Starter database transaktion
 	public void startTransaction() throws SQLException {
 		connection.setAutoCommit(false);
 	}
 	
+	// Commiter en database transaktion
 	public void commitTransaction() throws SQLException {
 		connection.commit();
 		connection.setAutoCommit(true);
 	}
 	
+	// trækker en database transaktion tilbage
 	public void rollbackTransaction() throws SQLException {
 		connection.rollback();
 		connection.setAutoCommit(true);
 	}
 	
+	// Udfører en forespørgsel og henter de genererede keys
 	public int executeInsertWithIdentity(PreparedStatement ps) throws SQLException  {
 		int res = -1;
 		try {
@@ -74,6 +81,7 @@ public class DatabaseConnection {
 		return res;
 	}
 	
+	// Udfører en forespørgsel som en string og henter de genererede keys 
 	public int executeInsertWithIdentity(String sql) throws SQLException  {
 		System.out.println("DBConnection, Inserting: " + sql);
 		int res = -1;
@@ -92,6 +100,7 @@ public class DatabaseConnection {
 		return res;
 	}
 	
+	// Udfærer en forespørgsel på en opdatering
 	public int executeUpdate(String sql) throws SQLException {
 		System.out.println("DBConnection, Updating: " + sql);
 		int res = -1;
@@ -104,11 +113,12 @@ public class DatabaseConnection {
 		return res;
 	}
 	
-	
+	// Henter JDBC forbindelsen 
 	public Connection getConnection() {
 		return connection;
 	}
 	
+	// Afslutter JDBC forbindelsen
 	public void disconnect() {
 		try {
 			connection.close();
