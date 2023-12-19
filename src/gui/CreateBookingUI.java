@@ -32,6 +32,15 @@ public class CreateBookingUI extends JFrame {
         setTitle("Booking side");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new GridLayout(6, 2, 10, 10));
+        
+                JLabel label_1 = new JLabel("Indtast kundens telefonnummer:");
+                label_1.setFont(new Font("Arial", Font.PLAIN, 13));
+                getContentPane().add(label_1);
+        nameTextField = new JTextField();
+        nameTextField.setFont(new Font("Arial", Font.PLAIN, 13));
+        getContentPane().add(nameTextField);
+        nameTextField.setColumns(10);
+        nameTextField.setToolTipText("Indsæt kundens telefonnummer. Bemærk kun danske numre");
 
         JLabel label_2 = new JLabel("Vælg service (inklusiv pris):");
         label_2.setFont(new Font("Arial", Font.PLAIN, 13));
@@ -40,15 +49,6 @@ public class CreateBookingUI extends JFrame {
         serviceComboBox.setFont(new Font("Arial", Font.PLAIN, 13));
         getContentPane().add(serviceComboBox);
         updateServiceComboBox();
-
-        JLabel label_1 = new JLabel("Indtast kundens telefonnummer:");
-        label_1.setFont(new Font("Arial", Font.PLAIN, 13));
-        getContentPane().add(label_1);
-        nameTextField = new JTextField();
-        nameTextField.setFont(new Font("Arial", Font.PLAIN, 13));
-        getContentPane().add(nameTextField);
-        nameTextField.setColumns(10);
-        nameTextField.setToolTipText("Indsæt kundens telefonnummer. Bemærk kun danske numre");
 
         JLabel label = new JLabel("Vælg dag og tidspunkt:");
         label.setFont(new Font("Arial", Font.PLAIN, 13));
