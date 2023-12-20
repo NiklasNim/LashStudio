@@ -33,9 +33,9 @@ public class CreateBookingUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new GridLayout(6, 2, 10, 10));
         
-                JLabel label_1 = new JLabel("Indtast kundens telefonnummer:");
-                label_1.setFont(new Font("Arial", Font.PLAIN, 13));
-                getContentPane().add(label_1);
+        JLabel label_1 = new JLabel("Indtast kundens telefonnummer:");
+        label_1.setFont(new Font("Arial", Font.PLAIN, 13));
+        getContentPane().add(label_1);
         nameTextField = new JTextField();
         nameTextField.setFont(new Font("Arial", Font.PLAIN, 13));
         getContentPane().add(nameTextField);
