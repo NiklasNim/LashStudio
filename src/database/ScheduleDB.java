@@ -74,26 +74,4 @@ public class ScheduleDB implements ScheduleDBIF {
 
         return schedule;
     }
-	
-    // Markerer en tidsplan som booket
-    public void markScheduleAsBooked(Schedule schedule) {
-        String sqlQuery = "UPDATE Schedule SET isBooked = true WHERE scheduleId = ?";
-
-        try {
-            DatabaseConnection dbConn = DatabaseConnection.getInstance();
-            try (PreparedStatement pstmt = dbConn.getConnection().prepareStatement(sqlQuery)) {
-                pstmt.setInt(1, schedule.getScheduleId());
-
-                int affectedRows = pstmt.executeUpdate();
-                if (affectedRows > 0) {
-                    System.out.println("Tidsplan med id " + schedule.getScheduleId() + " er markeret som booket.");
-                } else {
-                    System.out.println("Ingen tidsplan var markeret som booket. ScheduleId eksisterer måske ikke.");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Fejl opstået under markeringen af tidsplan for booking: " + e.getMessage());
-        }
-    }
 }
