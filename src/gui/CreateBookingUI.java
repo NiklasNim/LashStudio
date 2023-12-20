@@ -68,7 +68,7 @@ public class CreateBookingUI extends JFrame {
 
         JButton btnSubmit = new JButton("Udfør Booking");
         btnSubmit.setFont(new Font("Arial", Font.PLAIN, 13));
-        btnSubmit.addActionListener(e -> submitBooking());
+        btnSubmit.addActionListener(e -> submitBookingThreaded());
         getContentPane().add(btnSubmit);
         btnSubmit.setToolTipText("Klik her for at udføre booking");
     }
@@ -140,4 +140,11 @@ public class CreateBookingUI extends JFrame {
 	        dateComboBox.addItem(schedule);
 	    }
 	}
+    
+    public void submitBookingThreaded() {
+    	Thread thread = new Thread(() -> {
+            submitBooking();
+        });
+        thread.start();
+    }
 }
