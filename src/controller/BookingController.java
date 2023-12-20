@@ -42,18 +42,18 @@ public class BookingController {
             }
        }
 
-        bookingDB.addBooking(newBooking);
+        submitBooking(newBooking);
     }
 	
 	// Opret en booking med den angivne dato, telefonnummer, tidsplan-id og en enkelt service-id
-	public void makeBooking(LocalDate bookingDate, int phone, int scheduleId, int serviceId) {
+	public void createBooking(LocalDate bookingDate, int phone, int scheduleId, int serviceId) {
 		List<Integer> serviceIds = new ArrayList<>();
         serviceIds.add(serviceId);
         createBooking(bookingDate, phone, scheduleId, serviceIds);
 	}
 	
 	// Tilføj en bookinglinje til en booking med de angivne attributter
-	public void addBookingLine(int scheduleId , Booking booking, Service service, BigDecimal unitPrice) {
+	private void addBookingLine(int scheduleId , Booking booking, Service service, BigDecimal unitPrice) {
 	    BookingLine newBookingLine = new BookingLine(service, unitPrice);
 
 	    newBookingLine.setServiceId(service.getServiceId());
@@ -66,5 +66,9 @@ public class BookingController {
 	private boolean canBook(int scheduleId) {
         List<Schedule> scheduleList = scheduleController.getAllAvailableSchedules();
         return scheduleList.stream().anyMatch(schedule -> schedule.getScheduleId() == scheduleId);
+	}
+	
+	private void submitBooking(Booking booking) {
+		bookingDB.submitBooking(booking);
 	}
 }

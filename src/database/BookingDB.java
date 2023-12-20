@@ -10,7 +10,7 @@ import model.BookingLine;
 public class BookingDB implements BookingDBIF {
 	
 	// Tilføjer en booking til databasen
-	public void addBooking(Booking booking) {
+	public void submitBooking(Booking booking) {
 	    String sqlQuery = "INSERT INTO Booking values (?, ?)";
 
 	    try {
