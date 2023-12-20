@@ -46,7 +46,7 @@ public class BookingController {
     }
 	
 	// Opret en booking med den angivne dato, telefonnummer, tidsplan-id og en enkelt service-id
-	public void createBooking(LocalDate bookingDate, int phone, int scheduleId, int serviceId) {
+	public void makeBooking(LocalDate bookingDate, int phone, int scheduleId, int serviceId) {
 		List<Integer> serviceIds = new ArrayList<>();
         serviceIds.add(serviceId);
         createBooking(bookingDate, phone, scheduleId, serviceIds);
