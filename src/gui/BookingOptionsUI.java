@@ -35,7 +35,7 @@ public class BookingOptionsUI extends JFrame {
         JButton btnNewButton = new JButton("Opret Booking");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                bookingClicked();
+                bookingClickedThreaded();
             }
         });
         
@@ -81,5 +81,14 @@ public class BookingOptionsUI extends JFrame {
     // Metode til at håndtere klik på "Opret Booking" knappen
 	private void bookingClicked() {
 		guiHandler.createBookingUI();
+	}
+	
+	public void bookingClickedThreaded() {
+		Thread thread = new Thread() {
+			public void run() {
+				bookingClicked();
+			}
+		};
+		thread.start();
 	}
 }
