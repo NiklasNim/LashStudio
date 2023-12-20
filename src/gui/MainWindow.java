@@ -1,9 +1,7 @@
 package gui;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,7 +13,8 @@ import java.awt.event.ActionListener;
 
 public class MainWindow extends JFrame {
 
-    private JPanel contentPane;
+    private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
     
     // Konstruktør til oprettelse af hovedvinduet
     public MainWindow() {
@@ -45,7 +44,7 @@ public class MainWindow extends JFrame {
         JButton btnNewButton_2 = new JButton("Ordre");
         btnNewButton_2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                openOrderOptions();
+                /*openOrderOptions();*/
             }
         });
         btnNewButton_2.setFont(new Font("Arial", Font.BOLD, 38));
@@ -55,7 +54,7 @@ public class MainWindow extends JFrame {
         JButton btnNewButton_1 = new JButton("Kunde");
         btnNewButton_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                openCustomerOptions();
+                /*openCustomerOptions();*/
             }
         });
         btnNewButton_1.setFont(new Font("Arial", Font.BOLD, 38));
@@ -66,17 +65,5 @@ public class MainWindow extends JFrame {
     // Åbn booking valgmuligheder
     private void openBookingOptions() {
         guiHandler.createBookingOptionsUI();
-    }
-
-    // Åbn ordre valgmuligheder
-    private void openOrderOptions() {
-        OrderOptionsUI orderOptions = new OrderOptionsUI();
-        orderOptions.setVisible(true);
-    }
-
-    // Åbn kunde valgmuligheder
-    private void openCustomerOptions() {
-        CustomerOptionsUI customerOptions = new CustomerOptionsUI();
-        customerOptions.setVisible(true);
     }
 }
