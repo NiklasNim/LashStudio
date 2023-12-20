@@ -140,16 +140,4 @@ public class CreateBookingUI extends JFrame {
 	        dateComboBox.addItem(schedule);
 	    }
 	}
-
-    // Main til at starte GUI
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-                CreateBookingUI frame = new CreateBookingUI();
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
 }
